@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { StyleSheet, Text, View } from "react-native";
-import SearchScreen from "./src/screens/home_screen/HomeScreen";
-// import ResultsShowScreen from "./src/screens/results_show_screen/ResultsShowScreen";
+import HomeScreen from "./src/screens/home_screen/HomeScreen";
+import LoginScreen from "./src/screens/auth/LoginScreen";
+import CreateAccountScreen from "./src/screens/auth/CreateAccountscreen";
 import * as Font from "expo-font";
 
 const getFonts = () =>
@@ -15,13 +16,14 @@ const getFonts = () =>
 
 const AppNavigator = createStackNavigator(
   {
-    Search: SearchScreen,
-    // ResultsScreen: ResultsShowScreen,
+    Home: HomeScreen,
+    Login: LoginScreen,
+    Create: CreateAccountScreen,
   },
   {
-    initialRouteName: "Search",
+    initialRouteName: "Login",
     defaultNavigationOptions: {
-      title: "BytesBlog",
+      headerShown: false,
     },
   }
 );

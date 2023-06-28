@@ -29,7 +29,13 @@ export default function Search() {
   }, [term]);
 
   return (
-    <View style={{ marginLeft: 15, flex: 1 }}>
+    <View
+      style={{
+        marginLeft: 15,
+        flex: 1,
+        marginTop: 40,
+      }}
+    >
       {/* <Hero /> */}
       {/* <SearchBar
         term={term}
