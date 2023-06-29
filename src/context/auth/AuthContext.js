@@ -45,8 +45,9 @@ export function AuthProvider({ children }) {
     }
   }
 
-  function logOutUser() {
+  function logOutUser(callback) {
     dispatch({ type: "REMOVE_ACTIVE_USER" });
+    callback();
     AsyncStorage.removeItem("user");
   }
 

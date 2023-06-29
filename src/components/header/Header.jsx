@@ -6,7 +6,8 @@ import { useAuth } from "../../context/auth/AuthContext";
 
 function Header({ navigation, scrollPage, auth, fromBlog }) {
   const {
-    state: { user, logoutUser },
+    state: { user },
+    logOutUser,
   } = useAuth();
 
   return (
@@ -29,7 +30,9 @@ function Header({ navigation, scrollPage, auth, fromBlog }) {
           {user !== null ? (
             <TouchableOpacity
               style={[styles.authBtn, styles.signInBtn]}
-              onPress={logoutUser}
+              onPress={() => {
+                logOutUser(() => navigation.navigate("Login"));
+              }}
             >
               <Text style={styles.signInText}>Log Out</Text>
             </TouchableOpacity>

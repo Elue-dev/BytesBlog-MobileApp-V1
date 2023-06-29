@@ -5,8 +5,9 @@ import {
   TextInput,
   Platform,
   ScrollView,
-  Alert,
   ActivityIndicator,
+  KeyboardAvoidingView,
+  Dimensions,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
@@ -102,209 +103,223 @@ export default function ResetPassword({ navigation }) {
     }
   }
 
+  const keyboardVerticalOffset =
+    Platform.OS === "ios" ? 0 : -Dimensions.get("window").height * 0.2;
+
   return (
-    <ScrollView style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.goBack()}>
-        <AntDesign name="leftcircleo" size={30} style={styles.backIcon} />
-      </TouchableOpacity>
-      <View style={styles.imageWrapperReset}>
-        <TouchableOpacity onPress={() => navigation.navigate("Landing")}>
-          <Image
-            source={require("../../../assets/logo.png")}
-            style={styles.image}
-          />
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={keyboardVerticalOffset}
+    >
+      <ScrollView style={styles.container}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <AntDesign name="leftcircleo" size={30} style={styles.backIcon} />
         </TouchableOpacity>
-        <Text
-          style={[styles.welcomeText, { fontWeight: "600", paddingTop: 10 }]}
-        >
-          Reset Password
-        </Text>
-
-        {/* ==== FORM ===== */}
-        <View style={styles.formFields}>
-          {/* ====  PASSWORD ====== */}
-          <View style={styles.spaceOut}>
-            <TextInput
-              value={password}
-              name="password"
-              onFocus={() => setPasswordEntered(true)}
-              onChangeText={(value) => handleInputChange("password", value)}
-              secureTextEntry={passwordVisible ? false : true}
-              style={
-                Platform.OS === "android"
-                  ? styles.inputAndroid
-                  : styles.inputIOS
-              }
+        <View style={styles.imageWrapperReset}>
+          <TouchableOpacity onPress={() => navigation.navigate("Landing")}>
+            <Image
+              source={require("../../../assets/logo.png")}
+              style={styles.image}
             />
-            <Text style={styles.formText}>Password</Text>
+          </TouchableOpacity>
+          <Text
+            style={[styles.welcomeText, { fontWeight: "600", paddingTop: 10 }]}
+          >
+            Reset Password
+          </Text>
 
-            <TouchableOpacity
-              style={styles.icon}
-              onPress={() => setPasswordVisible(!passwordVisible)}
-            >
-              {passwordVisible ? (
-                <Feather name="eye-off" size={22} color="#777" />
-              ) : (
-                <Feather name="eye" size={22} olor="#777" />
-              )}
-            </TouchableOpacity>
-          </View>
+          {/* ==== FORM ===== */}
+          <View style={styles.formFields}>
+            {/* ====  PASSWORD ====== */}
+            <View style={styles.spaceOut}>
+              <TextInput
+                value={password}
+                name="password"
+                onFocus={() => setPasswordEntered(true)}
+                onChangeText={(value) => handleInputChange("password", value)}
+                secureTextEntry={passwordVisible ? false : true}
+                style={
+                  Platform.OS === "android"
+                    ? styles.inputAndroid
+                    : styles.inputIOS
+                }
+              />
+              <Text style={styles.formText}>Password</Text>
 
-          {/* ==== PASSWORD CHECKS ====== */}
-          {passwordEntered && (
-            <View style={[styles.passwordChecksWrapper, { flexWrap: "wrap" }]}>
-              {/* Upper & Lower case letter check */}
-              <View
-                style={[
-                  styles.checkItem,
-                  caseCondition && styles.checkItemPassed,
-                ]}
+              <TouchableOpacity
+                style={styles.icon}
+                onPress={() => setPasswordVisible(!passwordVisible)}
               >
-                {caseCondition ? (
-                  <Feather
-                    name="check-square"
-                    size={20}
-                    color={COLORS.primaryColorHover}
-                  />
+                {passwordVisible ? (
+                  <Feather name="eye-off" size={22} color="#777" />
                 ) : (
-                  <Feather name="x-square" size={20} color="crimson" />
+                  <Feather name="eye" size={22} olor="#777" />
                 )}
-                <Text
-                  style={
-                    caseCondition ? styles.checkItemPassed : styles.checkText
-                  }
-                >
-                  Upper & Lower case letter
-                </Text>
-              </View>
-
-              {/* 8 characters long check */}
-              <View
-                style={[
-                  styles.checkItem,
-                  lengthCondition && styles.checkItemPassed,
-                ]}
-              >
-                {lengthCondition ? (
-                  <Feather
-                    name="check-square"
-                    size={20}
-                    color={COLORS.primaryColorHover}
-                  />
-                ) : (
-                  <Feather name="x-square" size={20} color="crimson" />
-                )}
-                <Text
-                  style={
-                    lengthCondition ? styles.checkItemPassed : styles.checkText
-                  }
-                >
-                  8 characters long
-                </Text>
-              </View>
-
-              {/* Number check */}
-              <View
-                style={[
-                  styles.checkItem,
-                  numberCondition && styles.checkItemPassed,
-                ]}
-              >
-                {numberCondition ? (
-                  <Feather
-                    name="check-square"
-                    size={20}
-                    color={COLORS.primaryColorHover}
-                  />
-                ) : (
-                  <Feather name="x-square" size={20} color="crimson" />
-                )}
-                <Text
-                  style={
-                    numberCondition ? styles.checkItemPassed : styles.checkText
-                  }
-                >
-                  Number
-                </Text>
-              </View>
-
-              {/* Special character check */}
-              <View
-                style={[
-                  styles.checkItem,
-                  charCondition ? styles.checkItemPassed : styles.checkItem,
-                  ,
-                ]}
-              >
-                {charCondition ? (
-                  <Feather
-                    name="check-square"
-                    size={20}
-                    color={COLORS.primaryColorHover}
-                  />
-                ) : (
-                  <Feather name="x-square" size={20} color="crimson" />
-                )}
-                <Text
-                  style={
-                    charCondition ? styles.checkItemPassed : styles.checkText
-                  }
-                >
-                  Special character
-                </Text>
-              </View>
-            </View>
-          )}
-
-          {/* ==== CONFIRM PASSWORD ====== */}
-          <View style={styles.spaceOut}>
-            <TextInput
-              value={confirmPassword}
-              name="confirmPassword"
-              onChangeText={(value) =>
-                handleInputChange("confirmPassword", value)
-              }
-              secureTextEntry={cpasswordVisible ? false : true}
-              style={
-                Platform.OS === "android"
-                  ? styles.inputAndroid
-                  : styles.inputIOS
-              }
-            />
-            <Text style={styles.formText}>Confirm Password</Text>
-
-            <TouchableOpacity
-              style={styles.icon}
-              onPress={() => setCPasswordVisible(!passwordVisible)}
-            >
-              {passwordVisible ? (
-                <Feather name="eye-off" size={22} color="#777" />
-              ) : (
-                <Feather name="eye" size={22} olor="#777" />
-              )}
-            </TouchableOpacity>
-
-            {/* ==== SUBMIT SECTION */}
-            <TouchableOpacity style={styles.btn} onPress={resetUserPassword}>
-              {isLoading ? (
-                <ActivityIndicator color={"#fff"} size="small" />
-              ) : (
-                <Text style={styles.btnText}>Proceed</Text>
-              )}
-            </TouchableOpacity>
-
-            {/* ==== REDIRECT SECTION */}
-            <View style={styles.redirect}>
-              <Text style={styles.redirectText}>Back to</Text>
-              <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-                <Text style={[styles.redirectText, styles.underline]}>
-                  Home
-                </Text>
               </TouchableOpacity>
             </View>
-          </View>
 
-          {/* <View>
+            {/* ==== PASSWORD CHECKS ====== */}
+            {passwordEntered && (
+              <View
+                style={[styles.passwordChecksWrapper, { flexWrap: "wrap" }]}
+              >
+                {/* Upper & Lower case letter check */}
+                <View
+                  style={[
+                    styles.checkItem,
+                    caseCondition && styles.checkItemPassed,
+                  ]}
+                >
+                  {caseCondition ? (
+                    <Feather
+                      name="check-square"
+                      size={20}
+                      color={COLORS.primaryColorHover}
+                    />
+                  ) : (
+                    <Feather name="x-square" size={20} color="crimson" />
+                  )}
+                  <Text
+                    style={
+                      caseCondition ? styles.checkItemPassed : styles.checkText
+                    }
+                  >
+                    Upper & Lower case letter
+                  </Text>
+                </View>
+
+                {/* 8 characters long check */}
+                <View
+                  style={[
+                    styles.checkItem,
+                    lengthCondition && styles.checkItemPassed,
+                  ]}
+                >
+                  {lengthCondition ? (
+                    <Feather
+                      name="check-square"
+                      size={20}
+                      color={COLORS.primaryColorHover}
+                    />
+                  ) : (
+                    <Feather name="x-square" size={20} color="crimson" />
+                  )}
+                  <Text
+                    style={
+                      lengthCondition
+                        ? styles.checkItemPassed
+                        : styles.checkText
+                    }
+                  >
+                    8 characters long
+                  </Text>
+                </View>
+
+                {/* Number check */}
+                <View
+                  style={[
+                    styles.checkItem,
+                    numberCondition && styles.checkItemPassed,
+                  ]}
+                >
+                  {numberCondition ? (
+                    <Feather
+                      name="check-square"
+                      size={20}
+                      color={COLORS.primaryColorHover}
+                    />
+                  ) : (
+                    <Feather name="x-square" size={20} color="crimson" />
+                  )}
+                  <Text
+                    style={
+                      numberCondition
+                        ? styles.checkItemPassed
+                        : styles.checkText
+                    }
+                  >
+                    Number
+                  </Text>
+                </View>
+
+                {/* Special character check */}
+                <View
+                  style={[
+                    styles.checkItem,
+                    charCondition ? styles.checkItemPassed : styles.checkItem,
+                    ,
+                  ]}
+                >
+                  {charCondition ? (
+                    <Feather
+                      name="check-square"
+                      size={20}
+                      color={COLORS.primaryColorHover}
+                    />
+                  ) : (
+                    <Feather name="x-square" size={20} color="crimson" />
+                  )}
+                  <Text
+                    style={
+                      charCondition ? styles.checkItemPassed : styles.checkText
+                    }
+                  >
+                    Special character
+                  </Text>
+                </View>
+              </View>
+            )}
+
+            {/* ==== CONFIRM PASSWORD ====== */}
+            <View style={styles.spaceOut}>
+              <TextInput
+                value={confirmPassword}
+                name="confirmPassword"
+                onChangeText={(value) =>
+                  handleInputChange("confirmPassword", value)
+                }
+                secureTextEntry={cpasswordVisible ? false : true}
+                style={
+                  Platform.OS === "android"
+                    ? styles.inputAndroid
+                    : styles.inputIOS
+                }
+              />
+              <Text style={styles.formText}>Confirm Password</Text>
+
+              <TouchableOpacity
+                style={styles.icon}
+                onPress={() => setCPasswordVisible(!passwordVisible)}
+              >
+                {passwordVisible ? (
+                  <Feather name="eye-off" size={22} color="#777" />
+                ) : (
+                  <Feather name="eye" size={22} olor="#777" />
+                )}
+              </TouchableOpacity>
+
+              {/* ==== SUBMIT SECTION */}
+              <TouchableOpacity style={styles.btn} onPress={resetUserPassword}>
+                {isLoading ? (
+                  <ActivityIndicator color={"#fff"} size="small" />
+                ) : (
+                  <Text style={styles.btnText}>Proceed</Text>
+                )}
+              </TouchableOpacity>
+
+              {/* ==== REDIRECT SECTION */}
+              <View style={styles.redirect}>
+                <Text style={styles.redirectText}>Back to</Text>
+                <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+                  <Text style={[styles.redirectText, styles.underline]}>
+                    Home
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            {/* <View>
             <TouchableOpacity
               style={styles.btn}
               onPress={sendPasswordResetEmail}
@@ -316,8 +331,9 @@ export default function ResetPassword({ navigation }) {
               )}
             </TouchableOpacity>
           </View> */}
+          </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }

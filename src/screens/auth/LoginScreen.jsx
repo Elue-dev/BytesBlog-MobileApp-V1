@@ -7,6 +7,8 @@ import {
   ScrollView,
   ActivityIndicator,
   Alert,
+  KeyboardAvoidingView,
+  Dimensions,
 } from "react-native";
 import React, { useState } from "react";
 import { TouchableOpacity } from "react-native";
@@ -51,83 +53,92 @@ export default function LoginScreen({ navigation }) {
     }
   }
 
-  return (
-    <ScrollView style={styles.container}>
-      <View style={styles.imageWrapper}>
-        <TouchableOpacity onPress={() => navigation.navigate("Landing")}>
-          <Image
-            source={require("../../../assets/logo.png")}
-            style={styles.image}
-          />
-        </TouchableOpacity>
-        <Text style={styles.welcomeText}>Welcome Back</Text>
-        <TouchableOpacity style={styles.oAuth}>
-          <Image
-            source={require("../../../assets/googleIcon.png")}
-            style={styles.oAuthImage}
-          />
-          <Text style={styles.oAuthText}>Continue With Google</Text>
-        </TouchableOpacity>
-        <Text style={styles.or}>Or</Text>
-        <View style={styles.formFields}>
-          <View>
-            <TextInput
-              value={email}
-              onChangeText={(newVal) => setEmail(newVal)}
-              style={
-                Platform.OS === "android"
-                  ? styles.inputAndroid
-                  : styles.inputIOS
-              }
-            />
-            <Text style={styles.formText}>Email Address</Text>
-          </View>
-          <View style={styles.spaceOut}>
-            <TextInput
-              value={password}
-              onChangeText={(newVal) => setPassword(newVal)}
-              secureTextEntry={passwordVisible ? false : true}
-              style={
-                Platform.OS === "android"
-                  ? styles.inputAndroid
-                  : styles.inputIOS
-              }
-            />
-            <Text style={styles.formText}>Password</Text>
-            <TouchableOpacity
-              style={styles.icon}
-              onPress={() => setPasswordVisible(!passwordVisible)}
-            >
-              {passwordVisible ? (
-                <Feather name="eye-off" size={22} color="#777" />
-              ) : (
-                <Feather name="eye" size={22} olor="#777" />
-              )}
-            </TouchableOpacity>
+  const keyboardVerticalOffset =
+    Platform.OS === "ios" ? 0 : -Dimensions.get("window").height * 0.2;
 
-            <TouchableOpacity onPress={() => navigation.navigate("Forgot")}>
-              <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.btn} onPress={signInUser}>
-              {isLoading ? (
-                <ActivityIndicator color={"#fff"} size="small" />
-              ) : (
-                <Text style={styles.btnText}>Sign In</Text>
-              )}
-            </TouchableOpacity>
-            <View style={styles.redirect}>
-              <Text style={styles.redirectText}>
-                Don't have a Bytes account?
-              </Text>
-              <TouchableOpacity onPress={() => navigation.navigate("Create")}>
-                <Text style={[styles.redirectText, styles.underline]}>
-                  Sign Up
-                </Text>
+  return (
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={keyboardVerticalOffset}
+    >
+      <ScrollView style={styles.container}>
+        <View style={styles.imageWrapper}>
+          <TouchableOpacity onPress={() => navigation.navigate("Landing")}>
+            <Image
+              source={require("../../../assets/logo.png")}
+              style={styles.image}
+            />
+          </TouchableOpacity>
+          <Text style={styles.welcomeText}>Welcome Back</Text>
+          <TouchableOpacity style={styles.oAuth}>
+            <Image
+              source={require("../../../assets/googleIcon.png")}
+              style={styles.oAuthImage}
+            />
+            <Text style={styles.oAuthText}>Continue With Google</Text>
+          </TouchableOpacity>
+          <Text style={styles.or}>Or</Text>
+          <View style={styles.formFields}>
+            <View>
+              <TextInput
+                value={email}
+                onChangeText={(newVal) => setEmail(newVal)}
+                style={
+                  Platform.OS === "android"
+                    ? styles.inputAndroid
+                    : styles.inputIOS
+                }
+              />
+              <Text style={styles.formText}>Email Address</Text>
+            </View>
+            <View style={styles.spaceOut}>
+              <TextInput
+                value={password}
+                onChangeText={(newVal) => setPassword(newVal)}
+                secureTextEntry={passwordVisible ? false : true}
+                style={
+                  Platform.OS === "android"
+                    ? styles.inputAndroid
+                    : styles.inputIOS
+                }
+              />
+              <Text style={styles.formText}>Password</Text>
+              <TouchableOpacity
+                style={styles.icon}
+                onPress={() => setPasswordVisible(!passwordVisible)}
+              >
+                {passwordVisible ? (
+                  <Feather name="eye-off" size={22} color="#777" />
+                ) : (
+                  <Feather name="eye" size={22} olor="#777" />
+                )}
               </TouchableOpacity>
+
+              <TouchableOpacity onPress={() => navigation.navigate("Reset")}>
+                <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.btn} onPress={signInUser}>
+                {isLoading ? (
+                  <ActivityIndicator color={"#fff"} size="small" />
+                ) : (
+                  <Text style={styles.btnText}>Sign In</Text>
+                )}
+              </TouchableOpacity>
+              <View style={styles.redirect}>
+                <Text style={styles.redirectText}>
+                  Don't have a Bytes account?
+                </Text>
+                <TouchableOpacity onPress={() => navigation.navigate("Create")}>
+                  <Text style={[styles.redirectText, styles.underline]}>
+                    Sign Up
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
