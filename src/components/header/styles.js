@@ -5,6 +5,7 @@ export const styles = StyleSheet.create({
   wrapper: {
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "center",
     marginHorizontal: 10,
     backgroundColor: "#fff",
   },

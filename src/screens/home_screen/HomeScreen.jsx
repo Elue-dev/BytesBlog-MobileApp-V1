@@ -1,32 +1,29 @@
 import { useEffect, useState } from "react";
-import { ScrollView, Text, View } from "react-native";
-import BlogDetails from "../../components/blog_details/BlogDetails";
+import { View } from "react-native";
+import BlogLayout from "../../components/blog_layout/BlogLayout";
 import { httpRequest } from "../../lib";
 import SearchBar from "../../components/search_bar/SearchBar";
 import { styles } from "./styles";
+import { SERVER_URL } from "../../utils";
 
-export default function Search() {
-  const [term, setTerm] = useState("");
-  const [results, setResults] = useState([]);
+export default function HomeScreen() {
+  const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const fetchRestaurants = async () => {
+  const fetchBlogPosts = async () => {
     try {
       setIsLoading(true);
-      const response = await httpRequest.get(
-        "https://bytesblog-server-production.up.railway.app/api/v1/posts"
-      );
-      setResults(response.data.posts);
+      const response = await httpRequest.get(`${SERVER_URL}/posts`);
+      setPosts(response.data.posts);
       setIsLoading(false);
     } catch (error) {
-      console.log(error);
       setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchRestaurants();
-  }, [term]);
+    fetchBlogPosts();
+  }, []);
 
   return (
     <View
@@ -42,12 +39,12 @@ export default function Search() {
         onTermChange={(newTerm) => setTerm(newTerm)}
         onTermSubmit={fetchRestaurants}
       /> */}
-      {term && (
+      {/* {term && (
         <Text style={styles.searchText}>
           Search results for <Text style={styles.subText}>'{term}'</Text>
         </Text>
-      )}
-      <BlogDetails data={results} isLoading={isLoading} />
+      )} */}
+      <BlogLayout data={posts} isLoading={isLoading} />
     </View>
   );
 }

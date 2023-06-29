@@ -6,43 +6,48 @@ import {
   Platform,
   ScrollView,
   ActivityIndicator,
+  Alert,
 } from "react-native";
 import React, { useState } from "react";
 import { TouchableOpacity } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { httpRequest } from "../../lib";
 import { styles } from "./styles";
+import { SERVER_URL } from "../../utils";
+import { useAuth } from "../../context/auth/AuthContext";
+import { throwError } from "../../helpers/throwAlert";
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const { setActiveUser, state } = useAuth();
 
   async function signInUser() {
-    navigation.navigate("Home");
-    return;
-    const serverURL =
-      "https://bytesblog-server-production.up.railway.app/api/v1/auth/login";
-
     if (!email || !password) {
-      setError("Please provide your email and password");
-      setTimeout(() => setError(""), 5000);
+      Alert.alert(
+        "Empty fields detected ❌",
+        "Email and Password are required fields",
+        [{ text: "CLOSE" }]
+      );
       return;
     }
 
     try {
       setIsLoading(true);
-      const response = await httpRequest.post(serverURL, { email, password });
+      const response = await httpRequest.post(`${SERVER_URL}/auth/login`, {
+        email,
+        password,
+      });
       if (response.data.status === "success") {
         setIsLoading(false);
+        setActiveUser(response.data.user);
         navigation.navigate("Home");
       }
     } catch (error) {
+      throwError(error?.response?.data?.message);
       setIsLoading(false);
-      setTimeout(() => setError(""), 5000);
-      setError(error.response.data.message);
     }
   }
 
@@ -77,7 +82,7 @@ export default function LoginScreen({ navigation }) {
             />
             <Text style={styles.formText}>Email Address</Text>
           </View>
-          <View style={styles.passwordInput}>
+          <View style={styles.spaceOut}>
             <TextInput
               value={password}
               onChangeText={(newVal) => setPassword(newVal)}
@@ -100,17 +105,9 @@ export default function LoginScreen({ navigation }) {
               )}
             </TouchableOpacity>
 
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("Forgot")}>
               <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
             </TouchableOpacity>
-
-            {error && (
-              <Text
-                style={{ color: "crimson", fontWeight: "500", fontSize: 17 }}
-              >
-                {error}
-              </Text>
-            )}
             <TouchableOpacity style={styles.btn} onPress={signInUser}>
               {isLoading ? (
                 <ActivityIndicator color={"#fff"} size="small" />

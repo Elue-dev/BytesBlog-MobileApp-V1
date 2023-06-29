@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
   },
   heroTextWrap: {
     position: "absolute",
-    marginVertical: 100,
+    marginVertical: 50,
     padding: 10,
   },
   heroText: {

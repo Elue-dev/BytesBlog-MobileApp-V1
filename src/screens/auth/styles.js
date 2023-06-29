@@ -1,14 +1,25 @@
 import { Platform, StyleSheet } from "react-native";
+import { COLORS } from "../../common/colors";
 
 export const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fff",
     flex: 1,
   },
+  backIcon: {
+    marginLeft: 10,
+    marginBottom: 30,
+    color: "#555",
+    marginTop: 120,
+  },
   imageWrapper: {
     justifyContent: "center",
     alignItems: "center",
     marginTop: 120,
+  },
+  imageWrapperReset: {
+    justifyContent: "center",
+    alignItems: "center",
   },
   welcomeText: {
     fontSize: 30,
@@ -23,7 +34,7 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#999",
     paddingVertical: 6,
-    paddingHorizontal: Platform.OS === "android" ? 70 : 75,
+    paddingHorizontal: 80,
     borderRadius: 6,
   },
   oAuthImage: {
@@ -33,11 +44,12 @@ export const styles = StyleSheet.create({
     fontSize: 18,
   },
   or: {
-    marginVertical: 20,
+    marginVertical: 10,
     fontSize: 18,
   },
   formFields: {
     marginTop: 20,
+    marginBottom: 100,
   },
   inputAndroid: {
     borderWidth: 1,
@@ -54,7 +66,7 @@ export const styles = StyleSheet.create({
   inputIOS: {
     borderWidth: 1,
     borderColor: "#999",
-    width: 350,
+    width: 365,
     height: 50,
     position: "relative",
     borderRadius: 5,
@@ -70,14 +82,15 @@ export const styles = StyleSheet.create({
     backgroundColor: "#fff",
     paddingHorizontal: 5,
   },
-  passwordInput: {
-    marginTop: 45,
+  spaceOut: {
+    marginTop: 28,
   },
   icon: {
     position: "absolute",
     right: 10,
     top: 13,
   },
+
   forgotPasswordText: {
     textAlign: "right",
     fontSize: 16,
@@ -92,7 +105,7 @@ export const styles = StyleSheet.create({
   btnText: {
     textAlign: "center",
     color: "#fff",
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: 600,
   },
   redirect: {
@@ -107,5 +120,33 @@ export const styles = StyleSheet.create({
   underline: {
     textDecorationLine: "underline",
     fontWeight: 700,
+  },
+  errorText: {
+    color: "crimson",
+    fontWeight: "700",
+    marginTop: 7,
+    fontSize: 14,
+  },
+  checkItem: {
+    flexDirection: "row",
+    gap: 2,
+    alignItems: "center",
+  },
+  checkText: {
+    color: "crimson",
+    paddingVertical: 5,
+    fontWeight: 600,
+  },
+  checkItemPassed: {
+    color: COLORS.primaryColorHover,
+    fontWeight: 700,
+    paddingVertical: 5,
+  },
+  subText: {
+    textAlign: "center",
+    fontSize: 17,
+    color: COLORS.blackNeutralSec,
+    marginBottom: 40,
+    marginTop: 5,
   },
 });

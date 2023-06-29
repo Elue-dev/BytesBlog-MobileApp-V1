@@ -1,23 +1,16 @@
-import {
-  View,
-  Text,
-  FlatList,
-  Image,
-  ActivityIndicator,
-  ScrollView,
-} from "react-native";
-import React from "react";
-import { styles } from "./styles";
+import { View, Text, FlatList, Image, ActivityIndicator } from "react-native";
 import { EvilIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
-import { parseText } from "../../utils";
+import { DEFAULT_AVATAR, parseText } from "../../utils";
 import moment from "moment";
 import Categories from "./Categories";
 import { TouchableOpacity } from "react-native";
 import { withNavigation } from "react-navigation";
-import Header from "../../components/header/Header";
+import Header from "../header/Header";
+import React from "react";
+import { styles } from "./styles";
 
-function BlogDetails({ data, isLoading, navigation }) {
+function BlogLayout({ data, isLoading, navigation, fromBlog }) {
   return (
     <View style={{ marginLeft: 15, flex: 1, marginTop: 40 }}>
       {isLoading ? (
@@ -28,20 +21,9 @@ function BlogDetails({ data, isLoading, navigation }) {
         />
       ) : (
         <View style={{ flex: 1 }}>
-          <Header auth={true} />
+          <Header auth={true} fromBlog={true} />
           <Categories />
-          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-            <Text
-              style={{
-                textAlign: "right",
-                marginRight: 10,
-                marginTop: 10,
-                fontSize: 17,
-              }}
-            >
-              Log out
-            </Text>
-          </TouchableOpacity>
+
           <FlatList
             keyExtractor={(data) => data.id}
             data={data}
@@ -53,11 +35,7 @@ function BlogDetails({ data, isLoading, navigation }) {
                   <View style={styles.topContent}>
                     <View style={styles.authorDetails}>
                       <Image
-                        source={{
-                          uri:
-                            item.author.avatar ||
-                            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuoNupr5Y7ATlXqQbipRPidHyWTmqGv4dhNw&usqp=CAU",
-                        }}
+                        source={{ uri: item.author.avatar || DEFAULT_AVATAR }}
                         style={styles.avatar}
                       />
 
@@ -112,4 +90,4 @@ function BlogDetails({ data, isLoading, navigation }) {
   );
 }
 
-export default withNavigation(BlogDetails);
+export default withNavigation(BlogLayout);

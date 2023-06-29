@@ -13,11 +13,14 @@ import { styles } from "./styles";
 import Hero from "../../components/hero/Hero";
 import { offers } from "../../data/offers";
 import { LinearGradient } from "expo-linear-gradient";
+import { useAuth } from "../../context/auth/AuthContext";
 
 export default function LandingScreen({ navigation }) {
+  const {
+    state: { user },
+  } = useAuth();
   const [scrollPage, setScrollPage] = useState(false);
   const scrollViewRef = useRef();
-
   const handleScroll = (event) => {
     const offsetY = event.nativeEvent.contentOffset.y;
     if (offsetY > 80) {
@@ -46,21 +49,15 @@ export default function LandingScreen({ navigation }) {
           <View style={styles.offers}>
             <Text style={styles.heading}>What we offer you</Text>
             <View style={styles.offersContent}>
-              <FlatList
-                data={offers}
-                keyExtractor={(offers) => offers.id}
-                renderItem={({ item }) => {
-                  return (
-                    <View style={styles.offersWrap}>
-                      <Image source={item.imgPath} style={styles.offersImg} />
-                      <View>
-                        <Text style={styles.offersHeading}>{item.heading}</Text>
-                        <Text style={styles.subText}>{item.description}</Text>
-                      </View>
-                    </View>
-                  );
-                }}
-              />
+              {offers.map((offer) => (
+                <View style={styles.offersWrap} key={offer.id}>
+                  <Image source={offer.imgPath} style={styles.offersImg} />
+                  <View>
+                    <Text style={styles.offersHeading}>{offer.heading}</Text>
+                    <Text style={styles.subText}>{offer.description}</Text>
+                  </View>
+                </View>
+              ))}
             </View>
           </View>
           <View style={styles.landingBottom}>
@@ -78,12 +75,21 @@ export default function LandingScreen({ navigation }) {
                 Connect with curious minds, tell your story and share your
                 knowledge even just the way you want it
               </Text>
-              <TouchableOpacity
-                style={styles.btn}
-                onPress={() => navigation.navigate("Login")}
-              >
-                <Text style={styles.gerStarted}>Get Started</Text>
-              </TouchableOpacity>
+              {user !== null ? (
+                <TouchableOpacity
+                  style={styles.btn}
+                  onPress={() => navigation.navigate("Home")}
+                >
+                  <Text style={styles.gerStarted}>Visit Blog</Text>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  style={styles.btn}
+                  onPress={() => navigation.navigate("Create")}
+                >
+                  <Text style={styles.gerStarted}>Get Started</Text>
+                </TouchableOpacity>
+              )}
             </View>
           </View>
         </SafeAreaView>

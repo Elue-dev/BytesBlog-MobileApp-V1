@@ -45,8 +45,6 @@ export default function CreateAccountscreen() {
       return (
         <Interests
           values={values}
-          setValues={setValues}
-          initialValues={initialValues}
           interests={interests}
           setInterests={setInterests}
           previousStep={previousStep}
