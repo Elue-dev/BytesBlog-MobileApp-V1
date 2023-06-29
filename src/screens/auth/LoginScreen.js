@@ -17,13 +17,20 @@ export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   async function signInUser() {
+    navigation.navigate("Home");
+    return;
     const serverURL =
       "https://bytesblog-server-production.up.railway.app/api/v1/auth/login";
 
-    if (!email || !password) return;
+    if (!email || !password) {
+      setError("Please provide your email and password");
+      setTimeout(() => setError(""), 5000);
+      return;
+    }
 
     try {
       setIsLoading(true);
@@ -34,17 +41,20 @@ export default function LoginScreen({ navigation }) {
       }
     } catch (error) {
       setIsLoading(false);
-      console.log(error.response.data.message);
+      setTimeout(() => setError(""), 5000);
+      setError(error.response.data.message);
     }
   }
 
   return (
     <ScrollView style={styles.container}>
       <View style={styles.imageWrapper}>
-        <Image
-          source={require("../../../assets/icon.png")}
-          style={styles.image}
-        />
+        <TouchableOpacity onPress={() => navigation.navigate("Landing")}>
+          <Image
+            source={require("../../../assets/logo.png")}
+            style={styles.image}
+          />
+        </TouchableOpacity>
         <Text style={styles.welcomeText}>Welcome Back</Text>
         <TouchableOpacity style={styles.oAuth}>
           <Image
@@ -94,6 +104,13 @@ export default function LoginScreen({ navigation }) {
               <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
             </TouchableOpacity>
 
+            {error && (
+              <Text
+                style={{ color: "crimson", fontWeight: "500", fontSize: 17 }}
+              >
+                {error}
+              </Text>
+            )}
             <TouchableOpacity style={styles.btn} onPress={signInUser}>
               {isLoading ? (
                 <ActivityIndicator color={"#fff"} size="small" />

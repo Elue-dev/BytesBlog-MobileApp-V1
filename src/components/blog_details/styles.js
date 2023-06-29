@@ -4,6 +4,7 @@ export const styles = StyleSheet.create({
   container: {
     paddingBottom: 30,
     paddingTop: 30,
+    flex: 1,
   },
   avatar: {
     width: 40,

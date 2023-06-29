@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
@@ -64,7 +64,7 @@ export const styles = StyleSheet.create({
   },
   formText: {
     position: "absolute",
-    top: -15,
+    top: Platform.OS === "android" ? -14 : -10,
     left: 15,
     fontSize: 18,
     backgroundColor: "#fff",

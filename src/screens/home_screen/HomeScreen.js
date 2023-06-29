@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import BlogDetails from "../../components/blog_details/BlogDetails";
 import { httpRequest } from "../../lib";
 import SearchBar from "../../components/search_bar/SearchBar";
@@ -31,9 +31,8 @@ export default function Search() {
   return (
     <View
       style={{
-        marginLeft: 15,
         flex: 1,
-        marginTop: 40,
+        backgroundColor: "#fff",
       }}
     >
       {/* <Hero /> */}
@@ -48,9 +47,7 @@ export default function Search() {
           Search results for <Text style={styles.subText}>'{term}'</Text>
         </Text>
       )}
-      <View>
-        <BlogDetails data={results} isLoading={isLoading} />
-      </View>
+      <BlogDetails data={results} isLoading={isLoading} />
     </View>
   );
 }

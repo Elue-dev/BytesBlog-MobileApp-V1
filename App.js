@@ -6,6 +6,7 @@ import HomeScreen from "./src/screens/home_screen/HomeScreen";
 import LoginScreen from "./src/screens/auth/LoginScreen";
 import CreateAccountScreen from "./src/screens/auth/CreateAccountscreen";
 import * as Font from "expo-font";
+import LandingScreen from "./src/screens/landing_page/LandingScreen";
 
 const getFonts = () =>
   Font.loadAsync({
@@ -19,9 +20,10 @@ const AppNavigator = createStackNavigator(
     Home: HomeScreen,
     Login: LoginScreen,
     Create: CreateAccountScreen,
+    Landing: LandingScreen,
   },
   {
-    initialRouteName: "Login",
+    initialRouteName: "Landing",
     defaultNavigationOptions: {
       headerShown: false,
     },
@@ -43,7 +45,7 @@ export default function App() {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: "#FFF" }}>
+    <View style={{ flex: 1, backgroundColor: "#fff" }}>
       {fontLoaded ? <AppContainer /> : <Text>Loading...</Text>}
     </View>
   );

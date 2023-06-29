@@ -1,4 +1,11 @@
-import { View, Text, FlatList, Image, ActivityIndicator } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  Image,
+  ActivityIndicator,
+  ScrollView,
+} from "react-native";
 import React from "react";
 import { styles } from "./styles";
 import { EvilIcons } from "@expo/vector-icons";
@@ -6,21 +13,42 @@ import { Feather } from "@expo/vector-icons";
 import { parseText } from "../../utils";
 import moment from "moment";
 import Categories from "./Categories";
+import { TouchableOpacity } from "react-native";
+import { withNavigation } from "react-navigation";
+import Header from "../../components/header/Header";
 
-export default function BlogDetails({ data, isLoading }) {
+function BlogDetails({ data, isLoading, navigation }) {
   return (
-    <View>
+    <View style={{ marginLeft: 15, flex: 1, marginTop: 40 }}>
       {isLoading ? (
-        <ActivityIndicator size="large" color="#169639" />
+        <ActivityIndicator
+          size="large"
+          color="#169639"
+          style={{ paddingTop: 30 }}
+        />
       ) : (
-        <View>
+        <View style={{ flex: 1 }}>
+          <Header auth={true} />
           <Categories />
+          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+            <Text
+              style={{
+                textAlign: "right",
+                marginRight: 10,
+                marginTop: 10,
+                fontSize: 17,
+              }}
+            >
+              Log out
+            </Text>
+          </TouchableOpacity>
           <FlatList
             keyExtractor={(data) => data.id}
             data={data}
+            contentContainerStyle={{ flexGrow: 1 }}
             renderItem={({ item }) => {
               return (
-                <View style={styles.container}>
+                <View style={[styles.container, { flex: 1 }]}>
                   <Image source={{ uri: item.image }} style={styles.image} />
                   <View style={styles.topContent}>
                     <View style={styles.authorDetails}>
@@ -83,3 +111,5 @@ export default function BlogDetails({ data, isLoading }) {
     </View>
   );
 }
+
+export default withNavigation(BlogDetails);
