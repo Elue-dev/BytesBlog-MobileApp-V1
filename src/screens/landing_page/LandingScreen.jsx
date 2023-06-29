@@ -68,7 +68,7 @@ export default function LandingScreen({ navigation }) {
               />
             </View>
             <View style={{ paddingHorizontal: 15 }}>
-              <Text style={[styles.heading, { textAlign: "left" }]}>
+              <Text style={styles.bottomHeading}>
                 Join a community of creative geniuses
               </Text>
               <Text style={styles.subText}>

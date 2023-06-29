@@ -61,6 +61,12 @@ export const styles = StyleSheet.create({
     borderRadius: 40,
     marginHorizontal: 10,
   },
+  bottomHeading: {
+    fontSize: 30,
+    fontWeight: 600,
+    marginTop: 25,
+    marginBottom: 12,
+  },
   btn: {
     backgroundColor: COLORS.primaryColor,
     justifyContent: "center",
