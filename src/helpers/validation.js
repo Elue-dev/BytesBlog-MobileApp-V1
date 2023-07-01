@@ -26,15 +26,11 @@ export function runRegisterationValidation(
 
   if (missingFields.length > 0) {
     return Alert.alert(
-      "Errors detected ❌",
+      "Missing fields detected ❌",
       `${missingFields.join(", ")} ${
         missingFields.length > 1 ? "are" : "is"
       } required`,
-      [
-        {
-          text: "CLOSE",
-        },
-      ]
+      [{ text: "CLOSE" }]
     );
   }
 
@@ -42,11 +38,7 @@ export function runRegisterationValidation(
     return Alert.alert(
       "Invalid inputs ❌",
       "First Name contains unwanted characters",
-      [
-        {
-          text: "CLOSE",
-        },
-      ]
+      [{ text: "CLOSE" }]
     );
   }
 
@@ -54,11 +46,7 @@ export function runRegisterationValidation(
     return Alert.alert(
       "Invalid inputs ❌",
       "Last Name contains unwanted characters",
-      [
-        {
-          text: "CLOSE",
-        },
-      ]
+      [{ text: "CLOSE" }]
     );
   }
 
@@ -66,11 +54,7 @@ export function runRegisterationValidation(
     return Alert.alert(
       "Invalid Email Format ❌",
       "Plese enter a valid email format",
-      [
-        {
-          text: "CLOSE",
-        },
-      ]
+      [{ text: "CLOSE" }]
     );
   }
 
@@ -78,19 +62,13 @@ export function runRegisterationValidation(
     return Alert.alert(
       "Password too weak ❌",
       "Your password has not met the necessary strength requirements",
-      [
-        {
-          text: "CLOSE",
-        },
-      ]
+      [{ text: "CLOSE" }]
     );
   }
 
   if (password !== confirmPassword) {
     return Alert.alert("Password mismatch ❌", "Your passwords have to match", [
-      {
-        text: "CLOSE",
-      },
+      { text: "CLOSE" },
     ]);
   }
 

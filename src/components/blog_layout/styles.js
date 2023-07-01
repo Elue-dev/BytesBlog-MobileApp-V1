@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { COLORS } from "../../common/colors";
 
 export const styles = StyleSheet.create({
   container: {
@@ -32,6 +33,17 @@ export const styles = StyleSheet.create({
   username: {
     fontWeight: 500,
     fontSize: 16,
+  },
+  categorySelectionText: {
+    textAlign: "center",
+    marginTop: 10,
+    fontSize: 17,
+    fontWeight: 600,
+  },
+  categorySelectionSubText: {
+    fontStyle: "italic",
+    color: COLORS.primaryColor,
+    fontWeight: 700,
   },
   readTime: {
     flexDirection: "row",

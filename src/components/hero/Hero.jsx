@@ -2,10 +2,11 @@ import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { styles } from "./styles";
 import { ImageBackground } from "react-native";
-import { withNavigation } from "react-navigation";
+import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../../context/auth/AuthContext";
 
-function Hero({ navigation }) {
+function Hero() {
+  const navigation = useNavigation();
   const {
     state: { user },
   } = useAuth();
@@ -44,4 +45,4 @@ function Hero({ navigation }) {
   );
 }
 
-export default withNavigation(Hero);
+export default Hero;

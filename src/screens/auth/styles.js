@@ -105,7 +105,7 @@ export const styles = StyleSheet.create({
   btnText: {
     textAlign: "center",
     color: "#fff",
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 600,
   },
   redirect: {

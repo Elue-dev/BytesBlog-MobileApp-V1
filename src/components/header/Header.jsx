@@ -1,10 +1,12 @@
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import React from "react";
 import { styles } from "./styles";
-import { withNavigation } from "react-navigation";
+import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../../context/auth/AuthContext";
 
-function Header({ navigation, scrollPage, auth, fromBlog }) {
+function Header({ scrollPage, auth, fromBlog }) {
+  const navigation = useNavigation();
+
   const {
     state: { user },
     logOutUser,
@@ -58,4 +60,4 @@ function Header({ navigation, scrollPage, auth, fromBlog }) {
   );
 }
 
-export default withNavigation(Header);
+export default Header;

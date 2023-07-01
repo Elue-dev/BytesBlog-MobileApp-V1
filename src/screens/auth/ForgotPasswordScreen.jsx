@@ -7,6 +7,8 @@ import {
   ScrollView,
   ActivityIndicator,
   Alert,
+  KeyboardAvoidingView,
+  Dimensions,
 } from "react-native";
 import React, { useState } from "react";
 import { TouchableOpacity } from "react-native";
@@ -45,55 +47,64 @@ export default function ForgotPasswordScreen({ navigation }) {
     }
   }
 
-  return (
-    <ScrollView style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.goBack()}>
-        <AntDesign name="leftcircleo" size={30} style={styles.backIcon} />
-      </TouchableOpacity>
-      <View style={styles.imageWrapper}>
-        <TouchableOpacity onPress={() => navigation.navigate("Landing")}>
-          <Image
-            source={require("../../../assets/logo.png")}
-            style={styles.image}
-          />
-        </TouchableOpacity>
-        <Text
-          style={[styles.welcomeText, { fontWeight: "600", paddingTop: 10 }]}
-        >
-          Forgot Password
-        </Text>
-        <Text style={styles.subText}>
-          Kindly enter the email address you registered with
-        </Text>
+  const keyboardVerticalOffset =
+    Platform.OS === "ios" ? 0 : -Dimensions.get("window").height * 0.2;
 
-        {/* ==== FORM ===== */}
-        <View style={styles.formFields}>
-          <View style={styles.spaceOut}>
-            <TextInput
-              value={email}
-              onChangeText={(newVal) => setEmail(newVal)}
-              style={
-                Platform.OS === "android"
-                  ? styles.inputAndroid
-                  : styles.inputIOS
-              }
+  return (
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={keyboardVerticalOffset}
+    >
+      <ScrollView style={styles.container}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <AntDesign name="leftcircleo" size={30} style={styles.backIcon} />
+        </TouchableOpacity>
+        <View style={[styles.imageWrapper, { marginTop: 40 }]}>
+          <TouchableOpacity onPress={() => navigation.navigate("Landing")}>
+            <Image
+              source={require("../../../assets/logo.png")}
+              style={styles.image}
             />
-            <Text style={styles.formText}>Email Address</Text>
-          </View>
-          <View>
-            <TouchableOpacity
-              style={styles.btn}
-              onPress={sendPasswordResetEmail}
-            >
-              {isLoading ? (
-                <ActivityIndicator color={"#fff"} size="small" />
-              ) : (
-                <Text style={styles.btnText}>Send Password Reset Link</Text>
-              )}
-            </TouchableOpacity>
+          </TouchableOpacity>
+          <Text
+            style={[styles.welcomeText, { fontWeight: "600", paddingTop: 10 }]}
+          >
+            Forgot Password
+          </Text>
+          <Text style={styles.subText}>
+            Kindly enter the email address you registered with
+          </Text>
+
+          {/* ==== FORM ===== */}
+          <View style={styles.formFields}>
+            <View>
+              <TextInput
+                value={email}
+                onChangeText={(newVal) => setEmail(newVal)}
+                style={
+                  Platform.OS === "android"
+                    ? styles.inputAndroid
+                    : styles.inputIOS
+                }
+              />
+              <Text style={styles.formText}>Email Address</Text>
+            </View>
+            <View>
+              <TouchableOpacity
+                style={styles.btn}
+                onPress={sendPasswordResetEmail}
+              >
+                {isLoading ? (
+                  <ActivityIndicator color={"#fff"} size="small" />
+                ) : (
+                  <Text style={styles.btnText}>Send Password Reset Link</Text>
+                )}
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }

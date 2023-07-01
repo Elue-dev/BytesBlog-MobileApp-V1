@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import {
   View,
   Text,
@@ -7,11 +6,20 @@ import {
   ScrollView,
 } from "react-native";
 import { COLORS } from "../../common/colors";
-import { categories } from "./data";
+import { usePosts } from "../../context/posts/PostContext";
 
-export default function Categories() {
-  const modifiedCategories = ["All", ...categories];
-  const [selectedCategory, setSelectedCategory] = useState("All");
+export default function Categories({
+  posts,
+  selectedCategory,
+  setSelectedCategory,
+  modifiedCategories,
+}) {
+  const { filterPostsByKeyword } = usePosts();
+
+  function filterPosts(currentCategory) {
+    setSelectedCategory(currentCategory);
+    filterPostsByKeyword(posts, currentCategory);
+  }
 
   return (
     <View style={styles.wrapper}>
@@ -24,7 +32,7 @@ export default function Categories() {
               selectedCategory === item ? styles.active : null,
             ]}
           >
-            <TouchableOpacity onPress={() => setSelectedCategory(item)}>
+            <TouchableOpacity onPress={() => filterPosts(item)}>
               <Text
                 style={[
                   styles.text,

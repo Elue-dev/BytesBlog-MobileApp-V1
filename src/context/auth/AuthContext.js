@@ -1,21 +1,11 @@
 import { createContext, useContext, useReducer, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AuthReducer } from "./AuthReducer";
 
 const AuthContext = createContext();
 
 export function useAuth() {
   return useContext(AuthContext);
-}
-
-function AuthReducer(state, action) {
-  switch (action.type) {
-    case "SET_ACTIVE_USER":
-      return { ...state, user: action.payload };
-    case "REMOVE_ACTIVE_USER":
-      return { ...state, user: null };
-    default:
-      return state;
-  }
 }
 
 async function loadUserFromStorage(dispatch) {

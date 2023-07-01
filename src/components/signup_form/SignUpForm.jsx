@@ -13,10 +13,10 @@ import { TouchableOpacity } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { styles } from "../../screens/auth/styles";
 import { COLORS } from "../../common/colors";
-import { withNavigation } from "react-navigation";
 import { runRegisterationValidation } from "../../helpers/validation";
+import { useNavigation } from "@react-navigation/native";
 
-function SignUpForm({ values, handleInputChange, nextStep, navigation }) {
+function SignUpForm({ values, handleInputChange, nextStep }) {
   const { firstname, lastname, email, password, confirmPassword } = values;
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [cpasswordVisible, setCPasswordVisible] = useState(false);
@@ -26,6 +26,7 @@ function SignUpForm({ values, handleInputChange, nextStep, navigation }) {
   const [caseCondition, setCaseCondition] = useState(false);
   const [passwordCheckPassed, setPasswordCheckPassed] = useState(false);
   const [passwordEntered, setPasswordEntered] = useState(false);
+  const navigation = useNavigation();
 
   const CREDENTIALS_FIELDS = {
     firstname,
@@ -356,4 +357,4 @@ function SignUpForm({ values, handleInputChange, nextStep, navigation }) {
   );
 }
 
-export default withNavigation(SignUpForm);
+export default SignUpForm;

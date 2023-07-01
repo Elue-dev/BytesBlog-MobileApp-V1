@@ -4,13 +4,19 @@ import { Feather } from "@expo/vector-icons";
 import { DEFAULT_AVATAR, parseText } from "../../utils";
 import moment from "moment";
 import Categories from "./Categories";
-import { TouchableOpacity } from "react-native";
-import { withNavigation } from "react-navigation";
+import { useNavigation } from "@react-navigation/native";
+import { categories } from "./data";
 import Header from "../header/Header";
-import React from "react";
+import React, { useState } from "react";
 import { styles } from "./styles";
+import { usePosts } from "../../context/posts/PostContext";
 
-function BlogLayout({ data, isLoading, navigation, fromBlog }) {
+function BlogLayout({ data, isLoading, fromBlog }) {
+  const navigation = useNavigation();
+  const modifiedCategories = ["All", ...categories];
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const { filteredPosts } = usePosts();
+
   return (
     <View style={{ marginLeft: 15, flex: 1, marginTop: 40 }}>
       {isLoading ? (
@@ -22,11 +28,24 @@ function BlogLayout({ data, isLoading, navigation, fromBlog }) {
       ) : (
         <View style={{ flex: 1 }}>
           <Header auth={true} fromBlog={true} />
-          <Categories />
+          <Categories
+            posts={data}
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+            modifiedCategories={modifiedCategories}
+          />
 
+          {selectedCategory !== "All" && (
+            <Text style={styles.categorySelectionText}>
+              Posts results for category{" "}
+              <Text style={styles.categorySelectionSubText}>
+                '{selectedCategory}'
+              </Text>
+            </Text>
+          )}
           <FlatList
-            keyExtractor={(data) => data.id}
-            data={data}
+            keyExtractor={(filteredPosts) => filteredPosts.id}
+            data={filteredPosts}
             contentContainerStyle={{ flexGrow: 1 }}
             renderItem={({ item }) => {
               return (
@@ -90,4 +109,4 @@ function BlogLayout({ data, isLoading, navigation, fromBlog }) {
   );
 }
 
-export default withNavigation(BlogLayout);
+export default BlogLayout;

@@ -18,13 +18,15 @@ import { styles } from "./styles";
 import { SERVER_URL } from "../../utils";
 import { useAuth } from "../../context/auth/AuthContext";
 import { throwError } from "../../helpers/throwAlert";
+import { CommonActions, useNavigation } from "@react-navigation/native";
 
-export default function LoginScreen({ navigation }) {
+export default function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const { setActiveUser, state } = useAuth();
+  const navigation = useNavigation();
 
   async function signInUser() {
     if (!email || !password) {
@@ -45,7 +47,12 @@ export default function LoginScreen({ navigation }) {
       if (response.data.status === "success") {
         setIsLoading(false);
         setActiveUser(response.data.user);
-        navigation.navigate("Home");
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [{ name: "Home" }],
+          })
+        );
       }
     } catch (error) {
       throwError(error?.response?.data?.message);
@@ -115,7 +122,7 @@ export default function LoginScreen({ navigation }) {
                 )}
               </TouchableOpacity>
 
-              <TouchableOpacity onPress={() => navigation.navigate("Reset")}>
+              <TouchableOpacity onPress={() => navigation.navigate("Forgot")}>
                 <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.btn} onPress={signInUser}>

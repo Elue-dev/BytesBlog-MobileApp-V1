@@ -11,18 +11,13 @@ import { userInterests } from "../../data/interests";
 import { styles } from "./styles";
 import { SERVER_URL } from "../../utils";
 import { throwError } from "../../helpers/throwAlert";
-import { withNavigation } from "react-navigation";
 import { httpRequest } from "../../lib";
+import { useNavigation } from "@react-navigation/native";
 
-function Interests({
-  values,
-  interests,
-  setInterests,
-  previousStep,
-  navigation,
-}) {
+function Interests({ values, interests, setInterests, previousStep }) {
   const [isLoading, setIsLoading] = useState(false);
   const { firstname, lastname, email, password } = values;
+  const navigation = useNavigation();
 
   const setUserInterests = (int) => {
     if (interests.includes(int)) {
@@ -75,7 +70,7 @@ function Interests({
           <AntDesign name="leftcircleo" size={30} style={styles.icon} />
         </TouchableOpacity>
         <Text style={styles.heading}>Select Your Interests</Text>
-        <Text style={styles.subText}>
+        <Text style={[styles.subText, { marginTop: 10 }]}>
           This would determine the blog posts you would see
         </Text>
         <View style={styles.interestsWrap}>
@@ -111,4 +106,4 @@ function Interests({
   );
 }
 
-export default withNavigation(Interests);
+export default Interests;

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { createAppContainer } from "react-navigation";
-import { createStackNavigator } from "react-navigation-stack";
-import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
+import { useState, useEffect } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { ActivityIndicator, View } from "react-native";
 import HomeScreen from "./src/screens/home_screen/HomeScreen";
 import LoginScreen from "./src/screens/auth/LoginScreen";
 import CreateAccountScreen from "./src/screens/auth/CreateAccountscreen";
@@ -10,25 +10,9 @@ import LandingScreen from "./src/screens/landing_page/LandingScreen";
 import { AuthProvider } from "./src/context/auth/AuthContext";
 import ForgotPassword from "./src/screens/auth/ForgotPasswordScreen";
 import ResetPassword from "./src/screens/auth/ResetPassword";
+import { PostProvider } from "./src/context/posts/PostContext";
 
-const AppNavigator = createStackNavigator(
-  {
-    Home: HomeScreen,
-    Login: LoginScreen,
-    Create: CreateAccountScreen,
-    Landing: LandingScreen,
-    Forgot: ForgotPassword,
-    Reset: ResetPassword,
-  },
-  {
-    initialRouteName: "Landing",
-    defaultNavigationOptions: {
-      headerShown: false,
-    },
-  }
-);
-
-const AppContainer = createAppContainer(AppNavigator);
+const Stack = createStackNavigator();
 
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);
@@ -50,7 +34,23 @@ export default function App() {
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
       {fontLoaded ? (
         <AuthProvider>
-          <AppContainer />
+          <PostProvider>
+            <NavigationContainer>
+              <Stack.Navigator
+                initialRouteName="Landing"
+                screenOptions={{
+                  headerShown: false,
+                }}
+              >
+                <Stack.Screen name="Home" component={HomeScreen} />
+                <Stack.Screen name="Login" component={LoginScreen} />
+                <Stack.Screen name="Create" component={CreateAccountScreen} />
+                <Stack.Screen name="Landing" component={LandingScreen} />
+                <Stack.Screen name="Forgot" component={ForgotPassword} />
+                <Stack.Screen name="Reset" component={ResetPassword} />
+              </Stack.Navigator>
+            </NavigationContainer>
+          </PostProvider>
         </AuthProvider>
       ) : (
         <ActivityIndicator color="#000" size="large" />
@@ -58,5 +58,3 @@ export default function App() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({});
