@@ -1,11 +1,4 @@
-import {
-  View,
-  Text,
-  ImageBackground,
-  TouchableOpacity,
-  Image,
-  ScrollView,
-} from "react-native";
+import { View, Text, ImageBackground, Image, ScrollView } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 import { styles } from "./styles";
@@ -15,7 +8,7 @@ import moment from "moment";
 import { globalStyles } from "../../common/globalStyles";
 import LoadingScreen from "../../components/httpStates/Loading";
 import ErrorScreen from "../../components/httpStates/Error";
-import { parseText } from "../../utils";
+import PostContent from "../../helpers/PostContent";
 
 export default function PostDetailScreen() {
   const { postSlug } = useRoute().params;
@@ -65,10 +58,15 @@ export default function PostDetailScreen() {
           {/* ====== MAIN POST CONTENT ======= */}
           <View style={styles.postContent}>
             <Text style={styles.postTitle}>{post.title}</Text>
-            <View style={{ paddingRight: 10 }}>
+            <View>
               <Image source={{ uri: post.image }} style={styles.postImg} />
             </View>
-            <Text style={styles.postContent}>{parseText(post.content)}</Text>
+
+            <PostContent content={post.content} />
+
+            {/* <Text style={styles.postTextContent}>
+              {parseText(post.content)}
+            </Text> */}
           </View>
         </View>
       </View>

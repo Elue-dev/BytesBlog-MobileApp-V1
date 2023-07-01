@@ -5,14 +5,14 @@ import { globalStyles } from "../../common/globalStyles";
 export const styles = StyleSheet.create({
   container: {
     ...globalStyles.absoluteSpacing,
-    paddingTop: 20,
+    paddingTop: 0,
   },
   bgImage: {
     resizeMode: "contain",
     height: 100,
   },
   content: {
-    marginLeft: 15,
+    marginHorizontal: 15,
   },
   icon: {
     color: COLORS.gray600,
@@ -52,10 +52,9 @@ export const styles = StyleSheet.create({
   postImg: {
     height: 200,
     width: "100%",
-    resizeMode: "contain",
     borderRadius: 10,
   },
-  postContent: {
+  postTextContent: {
     marginTop: 20,
     color: COLORS.grayNeutral,
     fontSize: 18,

@@ -18,7 +18,7 @@ import PostDetailHeader from "./src/components/postdetails_header/PostDetailHead
 const Stack = createStackNavigator();
 const queryClient = new QueryClient();
 
-LogBox.ignoreAllLogs();
+// LogBox.ignoreAllLogs();
 
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);
