@@ -1,29 +1,27 @@
-import { useEffect, useState } from "react";
 import { View } from "react-native";
 import BlogLayout from "../../components/blog_layout/BlogLayout";
 import { httpRequest } from "../../lib";
-import SearchBar from "../../components/search_bar/SearchBar";
-import { styles } from "./styles";
-import { SERVER_URL } from "../../utils";
+import { useQuery } from "@tanstack/react-query";
+import LoadingScreen from "../../components/httpStates/Loading";
+import ErrorScreen from "../../components/httpStates/Error";
 
 export default function HomeScreen() {
-  const [posts, setPosts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  async function queryFn() {
+    const response = await httpRequest.get("/posts");
+    return response.data.posts;
+  }
 
-  const fetchBlogPosts = async () => {
-    try {
-      setIsLoading(true);
-      const response = await httpRequest.get(`${SERVER_URL}/posts`);
-      setPosts(response.data.posts);
-      setIsLoading(false);
-    } catch (error) {
-      setIsLoading(false);
-    }
-  };
+  const {
+    isLoading,
+    error,
+    data: posts,
+    refetch,
+  } = useQuery(["posts"], queryFn, {
+    staleTime: 60000,
+  });
 
-  useEffect(() => {
-    fetchBlogPosts();
-  }, []);
+  if (isLoading) return <LoadingScreen />;
+  if (error) return <ErrorScreen refetch={refetch} />;
 
   return (
     <View
@@ -44,7 +42,7 @@ export default function HomeScreen() {
           Search results for <Text style={styles.subText}>'{term}'</Text>
         </Text>
       )} */}
-      <BlogLayout data={posts} isLoading={isLoading} />
+      <BlogLayout postsData={posts} isLoading={isLoading} />
     </View>
   );
 }

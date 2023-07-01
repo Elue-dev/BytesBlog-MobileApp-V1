@@ -7,11 +7,11 @@ import Categories from "./Categories";
 import { useNavigation } from "@react-navigation/native";
 import { categories } from "./data";
 import Header from "../header/Header";
-import React, { useState } from "react";
+import { useState } from "react";
 import { styles } from "./styles";
 import { usePosts } from "../../context/posts/PostContext";
 
-function BlogLayout({ data, isLoading, fromBlog }) {
+function BlogLayout({ postsData, isLoading, fromBlog }) {
   const navigation = useNavigation();
   const modifiedCategories = ["All", ...categories];
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -29,7 +29,7 @@ function BlogLayout({ data, isLoading, fromBlog }) {
         <View style={{ flex: 1 }}>
           <Header auth={true} fromBlog={true} />
           <Categories
-            posts={data}
+            posts={postsData}
             selectedCategory={selectedCategory}
             setSelectedCategory={setSelectedCategory}
             modifiedCategories={modifiedCategories}
@@ -45,7 +45,7 @@ function BlogLayout({ data, isLoading, fromBlog }) {
           )}
           <FlatList
             keyExtractor={(filteredPosts) => filteredPosts.id}
-            data={filteredPosts}
+            data={filteredPosts || postsData}
             contentContainerStyle={{ flexGrow: 1 }}
             renderItem={({ item }) => {
               return (
