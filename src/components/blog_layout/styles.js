@@ -37,8 +37,11 @@ export const styles = StyleSheet.create({
   categorySelectionText: {
     textAlign: "center",
     marginTop: 10,
+    paddingBottom: 10,
     fontSize: 17,
     fontWeight: 600,
+    borderBottomWidth: 2,
+    borderColor: "#dedede",
   },
   categorySelectionSubText: {
     fontStyle: "italic",
@@ -76,6 +79,7 @@ export const styles = StyleSheet.create({
   readMore: {
     color: "#169639",
     fontWeight: 700,
+    fontSize: 17,
   },
   stats: {
     flexDirection: "row",

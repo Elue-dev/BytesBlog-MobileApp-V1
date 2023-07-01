@@ -13,10 +13,12 @@ export default function Categories({
   selectedCategory,
   setSelectedCategory,
   modifiedCategories,
+  scrollToTop,
 }) {
   const { filterPostsByKeyword } = usePosts();
 
   function filterPosts(currentCategory) {
+    scrollToTop();
     setSelectedCategory(currentCategory);
     filterPostsByKeyword(posts, currentCategory);
   }

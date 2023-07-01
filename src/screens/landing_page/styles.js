@@ -1,13 +1,9 @@
 import { Platform, StyleSheet } from "react-native";
 import { COLORS } from "../../common/colors";
+import { globalStyles } from "../../common/globalStyles";
 
 export const styles = StyleSheet.create({
-  main: {
-    flex: 1,
-    paddingTop: 70,
-    backgroundColor: "#fff",
-    paddingBottom: 50,
-  },
+  main: globalStyles.absoluteSpacing,
   wrapper: {
     paddingVertical: 60,
     gap: 10,

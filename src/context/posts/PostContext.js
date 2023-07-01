@@ -9,7 +9,7 @@ export function usePosts() {
 
 export function PostProvider({ children }) {
   const [state, dispatch] = useReducer(PostReducer, {
-    filteredPosts: null,
+    filteredPosts: [],
   });
 
   function filterPostsByKeyword(posts, keyword) {
