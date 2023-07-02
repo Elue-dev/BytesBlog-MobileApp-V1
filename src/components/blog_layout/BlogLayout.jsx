@@ -21,6 +21,7 @@ import { scrollToTop } from "../../helpers";
 import { useAuth } from "../../context/auth/AuthContext";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import { Button } from "react-native";
+import { COLORS } from "../../common/colors";
 
 function BlogLayout({ postsData, isLoading, fromBlog }) {
   const navigation = useNavigation();
@@ -80,7 +81,17 @@ function BlogLayout({ postsData, isLoading, fromBlog }) {
             </Text>
           )}
           {filteredPosts?.length === 0 ? (
-            <Text>No posts found with the category '{selectedCategory}'</Text>
+            <View>
+              <Text style={styles.noResults}>
+                No posts found. If there are blog posts on {selectedCategory},
+                they would appear here if they are among your interests.
+              </Text>
+              <View style={styles.manageIntWrap}>
+                <TouchableOpacity style={styles.manageInt}>
+                  <Text style={styles.btnText}>Manage Interets</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
           ) : (
             <FlatList
               keyExtractor={(filteredPosts) => filteredPosts.id}

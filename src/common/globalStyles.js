@@ -16,4 +16,19 @@ export const globalStyles = {
     justifyContent: "space-between",
     alignItems: "center",
   },
+  flexCol: {
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  btn: {
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 52,
+    paddingHorizontal: 11,
+    paddingVertical: 14,
+    marginBottom: 10,
+    marginTop: 20,
+    width: "50%",
+  },
 };

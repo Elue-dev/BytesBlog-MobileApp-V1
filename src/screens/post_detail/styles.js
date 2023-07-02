@@ -60,4 +60,25 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     lineHeight: 30,
   },
+  catHeading: {
+    fontWeight: 700,
+    fontSize: 19,
+    paddingTop: 30,
+    color: COLORS.gray500,
+  },
+  postCatWrap: {
+    ...globalStyles.flexStart,
+    paddingVertical: 15,
+    flexWrap: "wrap",
+  },
+  postCat: {
+    backgroundColor: COLORS.primaryColorLighter,
+    color: COLORS.blackNeutralSec,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: COLORS.borderPrimary,
+    borderRadius: 10,
+    fontWeight: 700,
+    fontSize: 15,
+  },
 });

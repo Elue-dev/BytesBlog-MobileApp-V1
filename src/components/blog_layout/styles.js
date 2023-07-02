@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import { COLORS } from "../../common/colors";
+import { globalStyles } from "../../common/globalStyles";
 
 export const styles = StyleSheet.create({
   container: {
@@ -111,5 +112,23 @@ export const styles = StyleSheet.create({
   },
   signUpBtn: {
     backgroundColor: COLORS.primaryColor,
+  },
+  noResults: {
+    color: COLORS.blackNeutralSec,
+    fontSize: 18,
+    marginVertical: 15,
+    lineHeight: 27,
+  },
+  manageIntWrap: {
+    ...globalStyles.flexCol,
+  },
+  manageInt: {
+    ...globalStyles.btn,
+    backgroundColor: COLORS.primaryColorLighter,
+  },
+  btnText: {
+    color: COLORS.primaryColor,
+    fontWeight: 700,
+    fontSize: 16,
   },
 });
