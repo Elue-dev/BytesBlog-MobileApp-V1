@@ -81,4 +81,16 @@ export const styles = StyleSheet.create({
     fontWeight: 700,
     fontSize: 15,
   },
+  actions: {
+    ...globalStyles.flexStart,
+    paddingVertical: 30,
+    gap: 40,
+  },
+  action: {
+    ...globalStyles.flexStart,
+    gap: 13,
+  },
+  actionText: {
+    fontSize: 20,
+  },
 });

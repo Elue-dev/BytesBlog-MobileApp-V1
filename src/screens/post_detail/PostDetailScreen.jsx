@@ -1,6 +1,11 @@
 import { View, Text, ImageBackground, Image, ScrollView } from "react-native";
 import { useRoute } from "@react-navigation/native";
-import { AntDesign } from "@expo/vector-icons";
+import {
+  AntDesign,
+  SimpleLineIcons,
+  Fontisto,
+  Feather,
+} from "@expo/vector-icons";
 import { useQuery } from "@tanstack/react-query";
 import { httpRequest } from "../../lib";
 import moment from "moment";
@@ -82,6 +87,35 @@ export default function PostDetailScreen() {
                   </Text>
                 </View>
               ))}
+            </View>
+
+            <View style={styles.actions}>
+              <View style={styles.action}>
+                <SimpleLineIcons name="like" size={30} />
+                <Text
+                  style={[
+                    styles.actionText,
+                    { textDecorationLine: "underline" },
+                  ]}
+                >
+                  {post.likes.length}
+                </Text>
+              </View>
+              <View style={styles.action}>
+                <Fontisto name="comment" size={30} />
+                <Text
+                  style={[
+                    styles.actionText,
+                    { textDecorationLine: "underline" },
+                  ]}
+                >
+                  {post.comments.length}
+                </Text>
+              </View>
+              <View style={styles.action}>
+                <Feather name="bookmark" size={30} />
+                <Text style={styles.actionText}>{post.bookmarks.length}</Text>
+              </View>
             </View>
           </View>
         </View>
