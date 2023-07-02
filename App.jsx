@@ -14,6 +14,8 @@ import { PostProvider } from "./src/context/posts/PostContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import PostDetailScreen from "./src/screens/post_detail/PostDetailScreen";
 import PostDetailHeader from "./src/components/postdetails_header/PostDetailHeader";
+import ProfileScreen from "./src/screens/profile/ProfileScreen";
+import AddPostScreen from "./src/screens/add_post/AddPostScreen";
 
 const Stack = createStackNavigator();
 const queryClient = new QueryClient();
@@ -55,6 +57,26 @@ export default function App() {
                   <Stack.Screen name="Landing" component={LandingScreen} />
                   <Stack.Screen name="Forgot" component={ForgotPassword} />
                   <Stack.Screen name="Reset" component={ResetPassword} />
+                  <Stack.Screen
+                    name="Profile"
+                    component={ProfileScreen}
+                    options={{
+                      headerShown: true,
+                      header: () => (
+                        <PostDetailHeader title="Profile" location="Profile" />
+                      ),
+                    }}
+                  />
+                  <Stack.Screen
+                    name="AddPost"
+                    component={AddPostScreen}
+                    options={{
+                      headerShown: true,
+                      header: () => (
+                        <PostDetailHeader title="Add Post" location="AddPost" />
+                      ),
+                    }}
+                  />
                   <Stack.Screen
                     name="PostDetails"
                     component={PostDetailScreen}

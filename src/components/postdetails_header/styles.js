@@ -13,5 +13,12 @@ export const styles = StyleSheet.create({
     ...globalStyles.flexBetween,
     paddingHorizontal: 10,
     paddingBottom: 5,
+    gap: 50,
+  },
+  headerTitle: {
+    fontSize: 22,
+    fontWeight: 700,
+    color: COLORS.gray600,
+    textAlign: "center",
   },
 });

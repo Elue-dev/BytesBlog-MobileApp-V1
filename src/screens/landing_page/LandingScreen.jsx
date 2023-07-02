@@ -14,11 +14,12 @@ import Hero from "../../components/hero/Hero";
 import { offers } from "../../data/offers";
 import { LinearGradient } from "expo-linear-gradient";
 import { useAuth } from "../../context/auth/AuthContext";
+import BottomSheetComponent from "../../components/bottom_sheet/BottomSheet";
+import { SharedElement } from "react-native-shared-element";
 
 export default function LandingScreen({ navigation }) {
-  const {
-    state: { user },
-  } = useAuth();
+  const { state, bottomSheetOpen, toggleBottomSheet, toggleOverlay } =
+    useAuth();
   const [scrollPage, setScrollPage] = useState(false);
   const scrollViewRef = useRef();
   const handleScroll = (event) => {
@@ -30,6 +31,11 @@ export default function LandingScreen({ navigation }) {
     }
   };
 
+  function handleBottomSheetActions() {
+    toggleBottomSheet();
+    toggleOverlay();
+  }
+
   useEffect(() => {
     const scrollView = scrollViewRef.current;
     scrollView.scrollTo({ y: 0, animated: true });
@@ -38,6 +44,7 @@ export default function LandingScreen({ navigation }) {
   return (
     <View style={styles.main}>
       <Header scrollPage={scrollPage} />
+
       <ScrollView
         style={{ backgroundColor: "#fff" }}
         ref={scrollViewRef}
@@ -46,6 +53,19 @@ export default function LandingScreen({ navigation }) {
       >
         <SafeAreaView>
           <Hero />
+
+          {/* ====== OVERLAY ====== */}
+          {bottomSheetOpen && (
+            <TouchableOpacity
+              onPress={handleBottomSheetActions}
+              style={styles.overlay}
+            >
+              <SharedElement id="overlay" style={styles.overlay}>
+                <View />
+              </SharedElement>
+            </TouchableOpacity>
+          )}
+
           <View style={styles.offers}>
             <Text style={styles.heading}>What we offer you</Text>
             <View style={styles.offersContent}>
@@ -75,7 +95,7 @@ export default function LandingScreen({ navigation }) {
                 Connect with curious minds, tell your story and share your
                 knowledge even just the way you want it
               </Text>
-              {user !== null ? (
+              {state.user !== null ? (
                 <TouchableOpacity
                   style={styles.btn}
                   onPress={() => navigation.navigate("Home")}
@@ -102,6 +122,9 @@ export default function LandingScreen({ navigation }) {
           />
         </View>
       </ScrollView>
+
+      {/* ======== BOTTOM SHEET ========= */}
+      {bottomSheetOpen && <BottomSheetComponent />}
     </View>
   );
 }

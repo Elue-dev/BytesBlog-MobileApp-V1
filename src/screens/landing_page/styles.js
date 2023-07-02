@@ -11,6 +11,11 @@ export const styles = StyleSheet.create({
   offers: {
     marginVertical: 20,
   },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    zIndex: 10,
+  },
   heading: {
     textAlign: "center",
     fontSize: 30,

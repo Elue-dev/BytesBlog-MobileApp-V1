@@ -19,19 +19,16 @@ import { styles } from "./styles";
 import { usePosts } from "../../context/posts/PostContext";
 import { scrollToTop } from "../../helpers";
 import { useAuth } from "../../context/auth/AuthContext";
-import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
-import { Button } from "react-native";
-import { COLORS } from "../../common/colors";
+import { SharedElement } from "react-native-shared-element";
+import BottomSheetComponent from "../bottom_sheet/BottomSheet";
 
-function BlogLayout({ postsData, isLoading, fromBlog }) {
+function BlogLayout({ postsData, isLoading }) {
   const navigation = useNavigation();
   const flatListRef = useRef(null);
   const modifiedCategories = ["All", ...categories];
   const [selectedCategory, setSelectedCategory] = useState("All");
   const { filteredPosts, filterPostsByKeyword, setCurrentPost } = usePosts();
   const { bottomSheetOpen, toggleBottomSheet, toggleOverlay } = useAuth();
-  const SheetRef = useRef(null);
-  const snapPoints = ["40%"];
 
   useEffect(() => {
     filterPostsByKeyword(postsData, selectedCategory);
@@ -43,6 +40,11 @@ function BlogLayout({ postsData, isLoading, fromBlog }) {
       postId: currentPost.id,
     });
     setCurrentPost(currentPost.id, currentPost.slug);
+  }
+
+  function handleBottomSheetActions() {
+    toggleBottomSheet();
+    toggleOverlay();
   }
 
   return (
@@ -70,7 +72,16 @@ function BlogLayout({ postsData, isLoading, fromBlog }) {
             scrollToTop={() => scrollToTop(flatListRef)}
           />
 
-          {bottomSheetOpen && <View style={styles.overlay} />}
+          {bottomSheetOpen && (
+            <TouchableOpacity
+              onPress={handleBottomSheetActions}
+              style={styles.overlay}
+            >
+              <SharedElement id="overlay" style={styles.overlay}>
+                <View />
+              </SharedElement>
+            </TouchableOpacity>
+          )}
 
           {selectedCategory !== "All" && (
             <Text style={styles.categorySelectionText}>
@@ -159,44 +170,9 @@ function BlogLayout({ postsData, isLoading, fromBlog }) {
           )}
         </View>
       )}
-      {bottomSheetOpen && (
-        <BottomSheet
-          ref={SheetRef}
-          snapPoints={snapPoints}
-          enablePanDownToClose={true}
-          onClose={() => {
-            toggleBottomSheet();
-            toggleOverlay();
-          }}
-        >
-          <BottomSheetView>
-            <Text
-              style={{ fontSize: 20, textAlign: "center", fontWeight: 600 }}
-            >
-              Menu Options
-            </Text>
-            <View
-              style={{
-                justifyContent: "center",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <TouchableOpacity
-                onPress={() => {
-                  toggleBottomSheet();
-                  toggleOverlay();
-                }}
-                style={[styles.authBtn, styles.signUpBtn]}
-              >
-                <Text style={{ color: "#fff", fontSize: 16, fontWeight: 700 }}>
-                  CLOSE
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </BottomSheetView>
-        </BottomSheet>
-      )}
+
+      {/* ======== BOTTOM SHEET ========= */}
+      {bottomSheetOpen && <BottomSheetComponent />}
     </View>
   );
 }

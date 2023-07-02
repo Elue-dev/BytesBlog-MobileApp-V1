@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useReducer, useState } from "react";
 import { PostReducer } from "./PostReducer";
 
 const PostContext = createContext();
@@ -8,6 +8,7 @@ export function usePosts() {
 }
 
 export function PostProvider({ children }) {
+  const [pageStep, setPageStep] = useState(1);
   const [state, dispatch] = useReducer(PostReducer, {
     filteredPosts: [],
     currentPost: {},
@@ -32,6 +33,8 @@ export function PostProvider({ children }) {
     currentPost: state.currentPost,
     filterPostsByKeyword,
     setCurrentPost,
+    pageStep,
+    setPageStep,
   };
 
   return <PostContext.Provider value={values}>{children}</PostContext.Provider>;

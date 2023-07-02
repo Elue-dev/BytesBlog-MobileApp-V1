@@ -18,8 +18,6 @@ export default function HomeScreen() {
     return response.data.posts;
   }
 
-  console.log({ INT: user.interests });
-
   const {
     isLoading,
     error,
@@ -43,7 +41,6 @@ export default function HomeScreen() {
         backgroundColor: "#fff",
       }}
     >
-      {/* <Hero /> */}
       {/* <SearchBar
         term={term}
         setTerm={setTerm}

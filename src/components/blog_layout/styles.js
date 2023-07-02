@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import { COLORS } from "../../common/colors";
 import { globalStyles } from "../../common/globalStyles";
 
