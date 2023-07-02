@@ -12,7 +12,7 @@ import { styles } from "./styles";
 import { SERVER_URL } from "../../utils";
 import { throwError } from "../../helpers/throwAlert";
 import { httpRequest } from "../../lib";
-import { useNavigation } from "@react-navigation/native";
+import { CommonActions, useNavigation } from "@react-navigation/native";
 import { useAuth } from "../../context/auth/AuthContext";
 
 function Interests({ values, interests, setInterests, previousStep }) {
@@ -52,6 +52,7 @@ function Interests({ values, interests, setInterests, previousStep }) {
         `${SERVER_URL}/auth/signup`,
         credentials
       );
+      console.log({ STATUS: response.data.status });
       if (response.data.status === "success") {
         setIsLoading(false);
         setActiveUser(response.data.user);
@@ -63,6 +64,7 @@ function Interests({ values, interests, setInterests, previousStep }) {
         );
       }
     } catch (error) {
+      console.log(error);
       const errorMessage = error?.response?.data?.message;
       throwError(errorMessage);
       if (errorMessage.includes("sign in instead"))

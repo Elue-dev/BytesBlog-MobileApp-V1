@@ -94,4 +94,22 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     gap: 2,
   },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    zIndex: 1,
+  },
+  authBtn: {
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 52,
+    paddingHorizontal: 11,
+    paddingVertical: 14,
+    marginBottom: 10,
+    marginTop: 20,
+    width: "50%",
+  },
+  signUpBtn: {
+    backgroundColor: COLORS.primaryColor,
+  },
 });

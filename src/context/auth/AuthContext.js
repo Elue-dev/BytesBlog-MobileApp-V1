@@ -19,16 +19,21 @@ async function loadUserFromStorage(dispatch) {
 }
 
 export function AuthProvider({ children }) {
-  const [state, dispatch] = useReducer(AuthReducer, { user: null });
+  const [state, dispatch] = useReducer(AuthReducer, {
+    user: null,
+    bottomSheetOpen: false,
+    isOverlayVisible: false,
+  });
 
   useEffect(() => {
     loadUserFromStorage(dispatch);
   }, []);
 
   async function setActiveUser(user) {
+    console.log({ userfrocontext: user });
+    await AsyncStorage.removeItem("user");
     try {
       dispatch({ type: "SET_ACTIVE_USER", payload: user });
-      await AsyncStorage.removeItem("user");
       await AsyncStorage.setItem("user", JSON.stringify(user));
     } catch (error) {
       console.error("Error setting active user:", error);
@@ -41,11 +46,22 @@ export function AuthProvider({ children }) {
     AsyncStorage.removeItem("user");
   }
 
+  function toggleBottomSheet() {
+    dispatch({ type: "TOGGLE_BOTTOM_SHEET" });
+  }
+
+  function toggleOverlay() {
+    dispatch({ type: "TOGGLE_OVERLAY" });
+  }
+
   const values = {
     state,
+    bottomSheetOpen: state.bottomSheetOpen,
     dispatch,
     setActiveUser,
     logOutUser,
+    toggleBottomSheet,
+    toggleOverlay,
   };
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;

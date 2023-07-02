@@ -1,7 +1,14 @@
-import { View, Text, ImageBackground, Image, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  ImageBackground,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
-import { styles } from "./styles";
+import { useState, useRef, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { httpRequest } from "../../lib";
 import moment from "moment";
@@ -10,9 +17,15 @@ import LoadingScreen from "../../components/httpStates/Loading";
 import ErrorScreen from "../../components/httpStates/Error";
 import PostContent from "../../helpers/PostContent";
 import { DEFAULT_AVATAR } from "../../utils";
+import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
+import { styles } from "./styles";
+import { Button } from "react-native";
 
 export default function PostDetailScreen() {
   const { postSlug } = useRoute().params;
+  const SheetRef = useRef(null);
+  // const [isOpen, setIsOpen] = useState(false);
+  const snapPoints = ["40%"];
 
   const {
     isLoading,

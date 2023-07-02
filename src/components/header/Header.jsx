@@ -1,11 +1,12 @@
+import { useRef } from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native";
-import React from "react";
-import { styles } from "./styles";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../../context/auth/AuthContext";
+import { styles } from "./styles";
 
 function Header({ scrollPage, auth, fromBlog }) {
   const navigation = useNavigation();
+  const { toggleBottomSheet, toggleOverlay } = useAuth();
 
   const {
     state: { user },
@@ -24,9 +25,16 @@ function Header({ scrollPage, auth, fromBlog }) {
         <Image source={require("../../../assets/logo.png")} />
       </TouchableOpacity>
       {auth ? (
-        <Text style={{ fontSize: 20, fontWeight: 500 }}>
-          Hi, {user?.firstName} 👋
-        </Text>
+        <TouchableOpacity
+          onPress={() => {
+            toggleBottomSheet();
+            toggleOverlay();
+          }}
+        >
+          <Text style={{ fontSize: 20, fontWeight: 500 }}>
+            Hi, {user?.firstName} 👋
+          </Text>
+        </TouchableOpacity>
       ) : (
         <View style={styles.authBtnWrapper}>
           {user !== null ? (

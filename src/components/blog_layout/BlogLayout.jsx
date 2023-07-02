@@ -18,6 +18,9 @@ import { useEffect, useRef, useState } from "react";
 import { styles } from "./styles";
 import { usePosts } from "../../context/posts/PostContext";
 import { scrollToTop } from "../../helpers";
+import { useAuth } from "../../context/auth/AuthContext";
+import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
+import { Button } from "react-native";
 
 function BlogLayout({ postsData, isLoading, fromBlog }) {
   const navigation = useNavigation();
@@ -25,6 +28,10 @@ function BlogLayout({ postsData, isLoading, fromBlog }) {
   const modifiedCategories = ["All", ...categories];
   const [selectedCategory, setSelectedCategory] = useState("All");
   const { filteredPosts, filterPostsByKeyword, setCurrentPost } = usePosts();
+  const { bottomSheetOpen, toggleBottomSheet, toggleOverlay } = useAuth();
+  const SheetRef = useRef(null);
+
+  const snapPoints = ["40%"];
 
   useEffect(() => {
     filterPostsByKeyword(postsData, selectedCategory);
@@ -39,7 +46,13 @@ function BlogLayout({ postsData, isLoading, fromBlog }) {
   }
 
   return (
-    <View style={{ marginLeft: 15, flex: 1, marginTop: 40 }}>
+    <View
+      style={{
+        marginLeft: bottomSheetOpen ? 0 : 15,
+        flex: 1,
+        marginTop: 40,
+      }}
+    >
       {isLoading ? (
         <ActivityIndicator
           size="large"
@@ -56,6 +69,8 @@ function BlogLayout({ postsData, isLoading, fromBlog }) {
             modifiedCategories={modifiedCategories}
             scrollToTop={() => scrollToTop(flatListRef)}
           />
+
+          {bottomSheetOpen && <View style={styles.overlay} />}
 
           {selectedCategory !== "All" && (
             <Text style={styles.categorySelectionText}>
@@ -133,6 +148,44 @@ function BlogLayout({ postsData, isLoading, fromBlog }) {
             />
           )}
         </View>
+      )}
+      {bottomSheetOpen && (
+        <BottomSheet
+          ref={SheetRef}
+          snapPoints={snapPoints}
+          enablePanDownToClose={true}
+          onClose={() => {
+            toggleBottomSheet();
+            toggleOverlay();
+          }}
+        >
+          <BottomSheetView>
+            <Text
+              style={{ fontSize: 20, textAlign: "center", fontWeight: 600 }}
+            >
+              Your Profile
+            </Text>
+            <View
+              style={{
+                justifyContent: "center",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <TouchableOpacity
+                onPress={() => {
+                  toggleBottomSheet();
+                  toggleOverlay();
+                }}
+                style={[styles.authBtn, styles.signUpBtn]}
+              >
+                <Text style={{ color: "#fff", fontSize: 16, fontWeight: 700 }}>
+                  CLOSE
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </BottomSheetView>
+        </BottomSheet>
       )}
     </View>
   );
