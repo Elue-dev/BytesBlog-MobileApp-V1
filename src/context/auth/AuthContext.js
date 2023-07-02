@@ -30,7 +30,6 @@ export function AuthProvider({ children }) {
   }, []);
 
   async function setActiveUser(user) {
-    console.log({ userfrocontext: user });
     await AsyncStorage.removeItem("user");
     try {
       dispatch({ type: "SET_ACTIVE_USER", payload: user });

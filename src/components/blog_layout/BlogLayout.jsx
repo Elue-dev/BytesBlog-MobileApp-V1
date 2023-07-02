@@ -30,7 +30,6 @@ function BlogLayout({ postsData, isLoading, fromBlog }) {
   const { filteredPosts, filterPostsByKeyword, setCurrentPost } = usePosts();
   const { bottomSheetOpen, toggleBottomSheet, toggleOverlay } = useAuth();
   const SheetRef = useRef(null);
-
   const snapPoints = ["40%"];
 
   useEffect(() => {
@@ -163,7 +162,7 @@ function BlogLayout({ postsData, isLoading, fromBlog }) {
             <Text
               style={{ fontSize: 20, textAlign: "center", fontWeight: 600 }}
             >
-              Your Profile
+              Menu Options
             </Text>
             <View
               style={{
