@@ -13,11 +13,13 @@ import { SERVER_URL } from "../../utils";
 import { throwError } from "../../helpers/throwAlert";
 import { httpRequest } from "../../lib";
 import { useNavigation } from "@react-navigation/native";
+import { useAuth } from "../../context/auth/AuthContext";
 
 function Interests({ values, interests, setInterests, previousStep }) {
   const [isLoading, setIsLoading] = useState(false);
   const { firstname, lastname, email, password } = values;
   const navigation = useNavigation();
+  const { setActiveUser } = useAuth();
 
   const setUserInterests = (int) => {
     if (interests.includes(int)) {
@@ -52,7 +54,13 @@ function Interests({ values, interests, setInterests, previousStep }) {
       );
       if (response.data.status === "success") {
         setIsLoading(false);
-        navigation.navigate("Home");
+        setActiveUser(response.data.user);
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [{ name: "Home" }],
+          })
+        );
       }
     } catch (error) {
       const errorMessage = error?.response?.data?.message;

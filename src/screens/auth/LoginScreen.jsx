@@ -25,7 +25,7 @@ export default function LoginScreen() {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const { setActiveUser, state } = useAuth();
+  const { setActiveUser } = useAuth();
   const navigation = useNavigation();
 
   async function signInUser() {
