@@ -10,6 +10,7 @@ export function usePosts() {
 export function PostProvider({ children }) {
   const [state, dispatch] = useReducer(PostReducer, {
     filteredPosts: [],
+    currentPost: {},
   });
 
   function filterPostsByKeyword(posts, keyword) {
@@ -19,9 +20,18 @@ export function PostProvider({ children }) {
     });
   }
 
+  function setCurrentPost(postId, postSlug) {
+    dispatch({
+      type: "SET_CURRENT_POST",
+      payload: { postId, postSlug },
+    });
+  }
+
   const values = {
     filteredPosts: state.filteredPosts,
+    currentPost: state.currentPost,
     filterPostsByKeyword,
+    setCurrentPost,
   };
 
   return <PostContext.Provider value={values}>{children}</PostContext.Provider>;

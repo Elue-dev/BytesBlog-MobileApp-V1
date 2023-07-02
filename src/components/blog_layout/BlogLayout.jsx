@@ -24,11 +24,19 @@ function BlogLayout({ postsData, isLoading, fromBlog }) {
   const flatListRef = useRef(null);
   const modifiedCategories = ["All", ...categories];
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const { filteredPosts, filterPostsByKeyword } = usePosts();
+  const { filteredPosts, filterPostsByKeyword, setCurrentPost } = usePosts();
 
   useEffect(() => {
     filterPostsByKeyword(postsData, selectedCategory);
   }, []);
+
+  function viewPostDetails(currentPost) {
+    navigation.navigate("PostDetails", {
+      postSlug: currentPost.slug,
+      postId: currentPost.id,
+    });
+    setCurrentPost(currentPost.id, currentPost.slug);
+  }
 
   return (
     <View style={{ marginLeft: 15, flex: 1, marginTop: 40 }}>
@@ -97,13 +105,7 @@ function BlogLayout({ postsData, isLoading, fromBlog }) {
                         {parseText(item.content.slice(0, 200))}...
                       </Text>
                     </View>
-                    <TouchableOpacity
-                      onPress={() =>
-                        navigation.navigate("PostDetails", {
-                          postSlug: item.slug,
-                        })
-                      }
-                    >
+                    <TouchableOpacity onPress={() => viewPostDetails(item)}>
                       <Text style={styles.readMore}>Read More</Text>
                     </TouchableOpacity>
                     <View style={styles.stats}>

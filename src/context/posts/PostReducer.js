@@ -10,6 +10,8 @@ export function PostReducer(state, action) {
             ? posts
             : posts.filter((post) => post.categories?.includes(keyword)),
       };
+    case "SET_CURRENT_POST":
+      return { ...state, currentPost: action.payload };
     default:
       return state;
   }

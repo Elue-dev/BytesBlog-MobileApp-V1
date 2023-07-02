@@ -9,6 +9,7 @@ import { globalStyles } from "../../common/globalStyles";
 import LoadingScreen from "../../components/httpStates/Loading";
 import ErrorScreen from "../../components/httpStates/Error";
 import PostContent from "../../helpers/PostContent";
+import { DEFAULT_AVATAR } from "../../utils";
 
 export default function PostDetailScreen() {
   const { postSlug } = useRoute().params;
@@ -37,13 +38,22 @@ export default function PostDetailScreen() {
           <View style={styles.authorInfo}>
             <View style={styles.authorProfile}>
               <Image
-                source={{ uri: post?.author?.avatar }}
+                source={{ uri: post?.author?.avatar || DEFAULT_AVATAR }}
                 style={styles.authorImage}
               />
               <View>
-                <Text style={styles.authorNames}>
-                  {post.author.firstName} {post.author.lastName}
-                </Text>
+                {(post.author.firstName + " " + post.author.lastName).length >
+                20 ? (
+                  <Text style={styles.authorNames}>
+                    {post.author.firstName} {post.author.lastName.slice(0, 4)}
+                    ...
+                  </Text>
+                ) : (
+                  <Text style={styles.authorNames}>
+                    {post.author.firstName} {post.author.lastName}
+                  </Text>
+                )}
+
                 <Text style={styles.createdAt}>
                   {moment(post.createdAt).fromNow()}
                 </Text>
@@ -61,12 +71,7 @@ export default function PostDetailScreen() {
             <View>
               <Image source={{ uri: post.image }} style={styles.postImg} />
             </View>
-
             <PostContent content={post.content} />
-
-            {/* <Text style={styles.postTextContent}>
-              {parseText(post.content)}
-            </Text> */}
           </View>
         </View>
       </View>
