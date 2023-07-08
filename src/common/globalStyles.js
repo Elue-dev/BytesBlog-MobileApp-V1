@@ -21,6 +21,12 @@ export const globalStyles = {
     justifyContent: "center",
     alignItems: "center",
   },
+  flexCenter: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 5,
+  },
   btn: {
     justifyContent: "center",
     alignItems: "center",
@@ -30,5 +36,10 @@ export const globalStyles = {
     marginBottom: 10,
     marginTop: 20,
     width: "50%",
+  },
+  avatarStyle: {
+    height: 30,
+    width: 30,
+    borderRadius: 50,
   },
 };

@@ -1,28 +1,26 @@
 import { View, TouchableOpacity, Text } from "react-native";
 import { styles } from "./styles";
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { COLORS } from "../../common/colors";
 import { usePosts } from "../../context/posts/PostContext";
 
-export default function PostDetailHeader({ title, location }) {
+export default function ScreensHeader({ title, location }) {
   const navigation = useNavigation();
-  const { pageStep } = usePosts();
+  const { pageStep, setPageStep } = usePosts();
 
   return (
     <View style={styles.container}>
       <View style={styles.wrapper}>
-        {location === "AddPost" && pageStep === 2 ? (
-          <Text style={{ opacity: 0 }}>..</Text>
-        ) : (
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Ionicons
-              name="chevron-back"
-              size={30}
-              color={COLORS.grayNeutral}
-            />
-          </TouchableOpacity>
-        )}
+        <TouchableOpacity
+          onPress={() => {
+            location === "AddPost" && pageStep === 2
+              ? setPageStep((currentStep) => currentStep - 1)
+              : navigation.goBack();
+          }}
+        >
+          <Ionicons name="chevron-back" size={30} color={COLORS.grayNeutral} />
+        </TouchableOpacity>
 
         <Text style={styles.headerTitle}>{title}</Text>
         <Text style={{ opacity: 0 }}>..</Text>

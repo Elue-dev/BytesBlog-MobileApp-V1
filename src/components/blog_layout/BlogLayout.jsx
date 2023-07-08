@@ -53,6 +53,7 @@ function BlogLayout({ postsData, isLoading }) {
         marginLeft: bottomSheetOpen ? 0 : 15,
         flex: 1,
         marginTop: 40,
+        backgroundColor: "#fff",
       }}
     >
       {isLoading ? (
@@ -148,7 +149,7 @@ function BlogLayout({ postsData, isLoading }) {
                       <Text>
                         <View style={styles.statsContent}>
                           <EvilIcons name="like" size={30} />
-                          <Text>
+                          <Text style={{ fontSize: 17 }}>
                             {item.likes.length}{" "}
                             {item.likes?.length > 1
                               ? "likes"
@@ -160,7 +161,9 @@ function BlogLayout({ postsData, isLoading }) {
                       </Text>
                       <View style={styles.statsContent}>
                         <Feather name="bookmark" size={20} />
-                        <Text>{item.bookmarks.length} bookmarks</Text>
+                        <Text style={{ fontSize: 17 }}>
+                          {item.bookmarks.length} bookmarks
+                        </Text>
                       </View>
                     </View>
                   </View>
