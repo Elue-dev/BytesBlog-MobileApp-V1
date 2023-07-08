@@ -84,7 +84,7 @@ export const styles = StyleSheet.create({
   actions: {
     ...globalStyles.flexStart,
     paddingVertical: 30,
-    gap: 30,
+    gap: 23,
     borderBottomWidth: 1,
     borderColor: COLORS.lightGraySec,
   },
@@ -93,6 +93,6 @@ export const styles = StyleSheet.create({
     gap: 5,
   },
   actionText: {
-    fontSize: 20,
+    fontSize: 18,
   },
 });

@@ -11,13 +11,12 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { DEFAULT_AVATAR } from "../../utils";
 import { styles } from "./styles";
 import { useLayoutEffect, useRef, useState } from "react";
-import { COLORS } from "../../common/colors";
 import { useAuth } from "../../context/auth/AuthContext";
 import { globalStyles } from "../../common/globalStyles";
 import CommentsLayout from "../../components/comments_layout/CommentsLayout";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { httpRequest } from "../../lib";
-import { throwAlert, throwError } from "../../helpers/throwAlert";
+import { throwError } from "../../helpers/throwAlert";
 
 export default function PostComments() {
   const navigation = useNavigation();
@@ -63,9 +62,9 @@ export default function PostComments() {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: `Comments (${rootComments?.length})`,
+      headerTitle: `Comments ${!isLoading ? `(${rootComments.length})` : ""} `,
     });
-  }, []);
+  }, [isLoading]);
 
   const mutation = useMutation(
     (newComment) => {
@@ -100,9 +99,6 @@ export default function PostComments() {
         setShowInput(false);
         setComment("");
         setLoading(false);
-        isReplying
-          ? throwAlert("Success ✅", "Reply added")
-          : throwAlert("Success ✅", "Comment added");
       }
     } catch (error) {
       setShowInput(false);

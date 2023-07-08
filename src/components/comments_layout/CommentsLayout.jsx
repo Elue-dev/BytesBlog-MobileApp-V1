@@ -5,6 +5,7 @@ import { DEFAULT_AVATAR } from "../../utils";
 import { COLORS } from "../../common/colors";
 import { globalStyles } from "../../common/globalStyles";
 import moment from "moment";
+import { useAuth } from "../../context/auth/AuthContext";
 
 export default function CommentsLayout({
   comment,
@@ -17,6 +18,9 @@ export default function CommentsLayout({
   setReplyId,
 }) {
   const [showReplies, setShowReplies] = useState(false);
+  const {
+    state: { user },
+  } = useAuth();
 
   const getReplies = (commentId) => {
     return allComments?.filter((comment) => comment.parentId === commentId);
@@ -41,18 +45,21 @@ export default function CommentsLayout({
           <Text style={styles.comment}>{comment.message}</Text>
 
           <View style={styles.actions}>
-            <TouchableOpacity
-              onPress={() => {
-                setAuthor(
-                  comment.author.firstName + " " + comment.author.lastName
-                );
-                setReplyId(comment.id);
-                setIsReplying(true);
-                inputRef.current.focus();
-              }}
-            >
-              <Text style={styles.repliesText}>Reply</Text>
-            </TouchableOpacity>
+            {comment.author.id !== user.id && (
+              <TouchableOpacity
+                onPress={() => {
+                  setAuthor(
+                    comment.author.firstName + " " + comment.author.lastName
+                  );
+                  setReplyId(comment.id);
+                  setIsReplying(true);
+                  inputRef.current.focus();
+                }}
+              >
+                <Text style={styles.repliesText}>Reply</Text>
+              </TouchableOpacity>
+            )}
+
             {getReplies(comment.id)?.length !== 0 && (
               <TouchableOpacity onPress={() => setShowReplies(!showReplies)}>
                 {showReplies ? (

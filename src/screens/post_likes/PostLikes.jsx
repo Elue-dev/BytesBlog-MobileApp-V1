@@ -19,10 +19,7 @@ export default function PostLikes() {
     <View style={{ backgroundColor: "#fff", flex: 1, padding: 10 }}>
       {likes.length === 0 ? (
         <View style={styles.noLikes}>
-          <Text style={styles.noLikesHeadingText}>No likes yet</Text>
-          <Text style={styles.noLikesSubText}>
-            Be the first to like this post
-          </Text>
+          <Text style={styles.noLikesHeadingText}>No likes on this yet</Text>
         </View>
       ) : (
         <FlatList

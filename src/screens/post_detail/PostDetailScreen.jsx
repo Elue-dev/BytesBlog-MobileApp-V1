@@ -9,12 +9,7 @@ import {
 import { ScrollView } from "react-native-gesture-handler";
 import { useRef, useEffect } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import {
-  AntDesign,
-  SimpleLineIcons,
-  Fontisto,
-  Feather,
-} from "@expo/vector-icons";
+import { AntDesign, Ionicons, EvilIcons } from "@expo/vector-icons";
 import { useQuery } from "@tanstack/react-query";
 import { httpRequest } from "../../lib";
 import moment from "moment";
@@ -25,7 +20,6 @@ import PostContent from "../../helpers/PostContent";
 import { DEFAULT_AVATAR } from "../../utils";
 import RelatedPosts from "../../components/related_posts/RelatedPosts";
 import { scrollToTop } from "../../helpers/index";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { styles } from "./styles";
 
 export default function PostDetailScreen() {
@@ -134,7 +128,7 @@ export default function PostDetailScreen() {
             {/* =========== ACTIONS (likes, comments, bookmarks) =========== */}
             <View style={styles.actions}>
               <View style={styles.action}>
-                <SimpleLineIcons name="like" size={22} />
+                <AntDesign name="like2" size={22} />
                 <TouchableOpacity
                   style={styles.action}
                   onPress={() =>
@@ -163,7 +157,7 @@ export default function PostDetailScreen() {
                   })
                 }
               >
-                <Fontisto name="comment" size={22} />
+                <EvilIcons name="comment" size={25} />
                 <Text
                   style={[
                     styles.actionText,
@@ -175,7 +169,7 @@ export default function PostDetailScreen() {
               </TouchableOpacity>
 
               <View style={styles.action}>
-                <Feather name="bookmark" size={24} />
+                <Ionicons name="bookmark-outline" size={21} />
                 <Text style={styles.actionText}>{post.bookmarks.length}</Text>
               </View>
             </View>

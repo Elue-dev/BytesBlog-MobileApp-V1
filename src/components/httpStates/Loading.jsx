@@ -1,14 +1,14 @@
-import { View } from "react-native";
 import { ActivityIndicator } from "react-native";
+import { SafeAreaView } from "react-navigation";
 
 export default function LoadingScreen() {
   return (
-    <View style={{ backgroundColor: "#fff", flex: 1 }}>
+    <SafeAreaView style={{ backgroundColor: "#fff", flex: 1 }}>
       <ActivityIndicator
         size="large"
         color="#169639"
-        style={{ paddingTop: 60 }}
+        style={{ paddingTop: 30 }}
       />
-    </View>
+    </SafeAreaView>
   );
 }
