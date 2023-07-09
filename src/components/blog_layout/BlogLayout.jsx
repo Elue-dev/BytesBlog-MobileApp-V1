@@ -65,6 +65,7 @@ function BlogLayout({ postsData, isLoading, userSpecificPosts, posts }) {
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["posts"]);
+        queryClient.invalidateQueries(["bookmarks"]);
         setBookmarksloading(false);
       },
     }
@@ -252,7 +253,7 @@ function BlogLayout({ postsData, isLoading, userSpecificPosts, posts }) {
                             onPress={() => likeDislikePost(item.id)}
                           >
                             {userHasLikedPost(item.likes) ? (
-                              <AntDesign name="like1" size={30} />
+                              <AntDesign name="like1" size={22} />
                             ) : (
                               <EvilIcons name="like" size={30} />
                             )}

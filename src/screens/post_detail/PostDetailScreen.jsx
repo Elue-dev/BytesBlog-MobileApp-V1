@@ -102,6 +102,7 @@ export default function PostDetailScreen() {
       onSuccess: () => {
         queryClient.invalidateQueries(["posts"]);
         queryClient.invalidateQueries([`post-${postSlug}`]);
+        queryClient.invalidateQueries(["bookmarks"]);
         setBookmarksloading(false);
       },
     }
