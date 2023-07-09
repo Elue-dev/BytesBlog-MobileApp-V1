@@ -19,6 +19,7 @@ export const styles = StyleSheet.create({
     height: 200,
     resizeMode: "cover",
     borderRadius: 4,
+    backgroundColor: COLORS.primaryColorLight,
   },
   topContent: {
     justifyContent: "center",

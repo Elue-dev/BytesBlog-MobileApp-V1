@@ -1,11 +1,21 @@
-import { View, Text, TouchableOpacity, Switch } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Switch,
+  SafeAreaView,
+} from "react-native";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import { Feather, FontAwesome5, SimpleLineIcons } from "@expo/vector-icons";
 import { useRef, useState } from "react";
 import { useAuth } from "../../context/auth/AuthContext";
 import { styles } from "./styles";
 import { COLORS } from "../../common/colors";
-import { CommonActions, useNavigation } from "@react-navigation/native";
+import {
+  CommonActions,
+  NavigationContainer,
+  useNavigation,
+} from "@react-navigation/native";
 
 export default function BottomSheetComponent() {
   const { logOutUser, toggleBottomSheet, toggleOverlay } = useAuth();
@@ -19,9 +29,11 @@ export default function BottomSheetComponent() {
   }
 
   function handleBottomSheetActions(route) {
+    console.log("running...");
     toggleBottomSheet();
     toggleOverlay();
     navigation.navigate(route);
+    console.log("ram...");
   }
 
   function handleLogoutAction() {
@@ -60,7 +72,7 @@ export default function BottomSheetComponent() {
 
           <TouchableOpacity
             style={styles.bottomSheetItem}
-            onPress={() => handleBottomSheetActions("AddPost")}
+            onPress={() => navigation.navigate("AddPost")}
           >
             <FontAwesome5 name="pen-fancy" size={28} color={COLORS.gray600} />
             <Text style={styles.sheetText}>Add Post</Text>

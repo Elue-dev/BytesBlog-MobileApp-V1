@@ -32,7 +32,7 @@ export const styles = StyleSheet.create({
     gap: 15,
   },
   repliesWrap: {
-    marginLeft: 5,
+    marginLeft: 10,
     borderLeftWidth: 1,
     borderColor: COLORS.lightGraySec,
   },

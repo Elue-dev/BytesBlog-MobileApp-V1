@@ -28,13 +28,13 @@ export const styles = StyleSheet.create({
   oAuth: {
     marginTop: 20,
     flexDirection: "row",
-    justifyContent: "flex-start",
+    justifyContent: "center",
     alignItems: "center",
     gap: 9,
     borderWidth: 1,
     borderColor: "#999",
-    paddingVertical: 6,
-    paddingHorizontal: 80,
+    minWidth: Platform.OS === "android" ? "92%" : "95%",
+    height: 50,
     borderRadius: 6,
   },
   oAuthImage: {
@@ -46,6 +46,7 @@ export const styles = StyleSheet.create({
   or: {
     marginVertical: 10,
     fontSize: 18,
+    textAlign: "center",
   },
   formFields: {
     marginTop: 20,
@@ -54,7 +55,7 @@ export const styles = StyleSheet.create({
   inputAndroid: {
     borderWidth: 1,
     borderColor: "#999",
-    width: 380,
+    minWidth: "92%",
     height: 54,
     position: "relative",
     borderRadius: 5,
@@ -62,17 +63,16 @@ export const styles = StyleSheet.create({
     paddingLeft: 10,
     color: "#555",
   },
-
   inputIOS: {
     borderWidth: 1,
     borderColor: "#999",
-    width: 365,
+    minWidth: "95%",
     height: 50,
     position: "relative",
     borderRadius: 5,
     fontSize: 17,
-    paddingLeft: 10,
     color: "#555",
+    paddingLeft: 10,
   },
   formText: {
     position: "absolute",
@@ -144,7 +144,7 @@ export const styles = StyleSheet.create({
   },
   subText: {
     textAlign: "center",
-    fontSize: 17,
+    fontSize: 16,
     color: COLORS.blackNeutralSec,
     marginBottom: 40,
     marginTop: 5,

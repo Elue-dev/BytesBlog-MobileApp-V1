@@ -86,5 +86,6 @@ export const styles = StyleSheet.create({
   manageText: {
     fontSize: 15,
     color: COLORS.gray600,
+    textDecorationLine: "underline",
   },
 });

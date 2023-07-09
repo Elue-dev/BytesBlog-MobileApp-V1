@@ -26,6 +26,7 @@ export const styles = StyleSheet.create({
     height: 50,
     width: 50,
     borderRadius: 50,
+    backgroundColor: COLORS.primaryColorLight,
   },
   authorProfile: {
     ...globalStyles.flexStart,
@@ -53,6 +54,7 @@ export const styles = StyleSheet.create({
     height: 200,
     width: "100%",
     borderRadius: 10,
+    backgroundColor: COLORS.primaryColorLight,
   },
   postTextContent: {
     marginTop: 20,

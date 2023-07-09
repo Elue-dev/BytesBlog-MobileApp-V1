@@ -58,7 +58,7 @@ export default function ForgotPasswordScreen({ navigation }) {
     >
       <ScrollView style={styles.container}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <AntDesign name="leftcircleo" size={30} style={styles.backIcon} />
+          <AntDesign name="leftcircleo" size={25} style={styles.backIcon} />
         </TouchableOpacity>
         <View style={[styles.imageWrapper, { marginTop: 40 }]}>
           <TouchableOpacity onPress={() => navigation.navigate("Landing")}>

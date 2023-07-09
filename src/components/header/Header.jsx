@@ -7,13 +7,12 @@ import { SharedElement } from "react-native-shared-element";
 import { styles } from "./styles";
 import BottomSheetComponent from "../bottom_sheet/BottomSheet";
 
-function Header({ scrollPage, auth, fromBlog }) {
+function Header({ scrollPage, fromBlog }) {
   const navigation = useNavigation();
   const { bottomSheetOpen, toggleBottomSheet, toggleOverlay } = useAuth();
 
   const {
     state: { user },
-    logOutUser,
   } = useAuth();
 
   function handleBottomSheetActions() {
@@ -22,62 +21,66 @@ function Header({ scrollPage, auth, fromBlog }) {
   }
 
   return (
-    <View
-      style={[
-        styles.wrapper,
-        scrollPage ? styles.borders : null,
-        fromBlog === true ? { marginVertical: 30 } : null,
-      ]}
-    >
-      <TouchableOpacity onPress={() => navigation.navigate("Landing")}>
-        <Image source={require("../../../assets/logo.png")} />
-      </TouchableOpacity>
-
-      {bottomSheetOpen && (
-        <TouchableOpacity
-          onPress={handleBottomSheetActions}
-          style={styles.overlay}
-        >
-          <SharedElement id="overlay" style={styles.overlay}>
-            <View />
-          </SharedElement>
+    <>
+      <View
+        style={[
+          styles.wrapper,
+          scrollPage ? styles.borders : null,
+          fromBlog === true ? { marginVertical: 30 } : null,
+        ]}
+      >
+        <TouchableOpacity onPress={() => navigation.navigate("Landing")}>
+          <Image source={require("../../../assets/logo.png")} />
         </TouchableOpacity>
-      )}
 
-      <View style={styles.authBtnWrapper}>
-        {user !== null ? (
-          <TouchableOpacity onPress={handleBottomSheetActions}>
-            <Text style={{ fontSize: 20, fontWeight: 500 }}>
-              <Image
-                source={{ uri: user?.avatar || DEFAULT_AVATAR }}
-                style={{
-                  height: 40,
-                  width: 40,
-                  borderRadius: 50,
-                  resizeMode: "cover",
-                }}
-              />
-              <Feather name="chevron-down" size={25} />
-            </Text>
+        {bottomSheetOpen && (
+          <TouchableOpacity
+            onPress={handleBottomSheetActions}
+            style={styles.overlay}
+          >
+            <SharedElement id="overlay" style={styles.overlay}>
+              <View />
+            </SharedElement>
           </TouchableOpacity>
-        ) : (
-          <>
-            <TouchableOpacity
-              style={[styles.authBtn, styles.signInBtn]}
-              onPress={() => navigation.navigate("Login")}
-            >
-              <Text style={styles.signInText}>Sign In</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.authBtn, styles.signUpBtn]}
-              onPress={() => navigation.navigate("Create")}
-            >
-              <Text style={styles.signUpText}>Sign Up</Text>
-            </TouchableOpacity>
-          </>
         )}
+
+        <View style={styles.authBtnWrapper}>
+          {user !== null ? (
+            <TouchableOpacity onPress={handleBottomSheetActions}>
+              <Text style={{ fontSize: 20, fontWeight: 500 }}>
+                <Image
+                  source={{ uri: user?.avatar || DEFAULT_AVATAR }}
+                  style={{
+                    height: 40,
+                    width: 40,
+                    borderRadius: 20,
+                    // resizeMode: "cover",
+                  }}
+                />
+                <Feather name="chevron-down" size={25} />
+              </Text>
+            </TouchableOpacity>
+          ) : (
+            <>
+              <TouchableOpacity
+                style={[styles.authBtn, styles.signInBtn]}
+                onPress={() => navigation.navigate("Login")}
+              >
+                <Text style={styles.signInText}>Sign In</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.authBtn, styles.signUpBtn]}
+                onPress={() => navigation.navigate("Create")}
+              >
+                <Text style={styles.signUpText}>Sign Up</Text>
+              </TouchableOpacity>
+            </>
+          )}
+        </View>
       </View>
-    </View>
+      {/* ======== BOTTOM SHEET ========= */}
+      {bottomSheetOpen && <BottomSheetComponent />}
+    </>
   );
 }
 
