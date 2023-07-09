@@ -5,8 +5,8 @@ import {
   Image,
   TouchableOpacity,
   ActivityIndicator,
+  ScrollView,
 } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
 import { useRef, useEffect, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import {
@@ -24,15 +24,13 @@ import ErrorScreen from "../../components/httpStates/Error";
 import PostContent from "../../helpers/PostContent";
 import { DEFAULT_AVATAR } from "../../utils";
 import RelatedPosts from "../../components/related_posts/RelatedPosts";
-import { scrollToTop } from "../../helpers/index";
 import { styles } from "./styles";
 import { useAuth } from "../../context/auth/AuthContext";
-import { throwAlert, throwError } from "../../helpers/throwAlert";
+import { throwError } from "../../helpers/throwAlert";
 
 export default function PostDetailScreen() {
   const { state } = useAuth();
   const { postSlug } = useRoute().params;
-  const scrollRef = useRef(null);
   const navigation = useNavigation();
   const [isLiked, setIsLiked] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
@@ -42,9 +40,15 @@ export default function PostDetailScreen() {
   const authHeaders = {
     headers: { authorization: `Bearer ${state.user?.token}` },
   };
+  const scrollRef = useRef(null);
 
   useEffect(() => {
-    scrollToTop(scrollRef);
+    if (scrollRef.current && scrollRef.current.scrollToOffset) {
+      scrollRef.current.scrollToOffset({
+        offset: 0,
+        animated: true,
+      });
+    }
   }, []);
 
   const {
@@ -71,19 +75,6 @@ export default function PostDetailScreen() {
     {
       staleTime: 60000,
     }
-  );
-
-  if (isLoading) return <LoadingScreen />;
-  if (error) return <ErrorScreen />;
-
-  const rootComments = post.comments.filter(
-    (comment) => comment.parentId === null
-  );
-
-  const relatedPosts = posts?.filter(
-    (p) =>
-      p.categories.some((category) => post?.categories.includes(category)) &&
-      p.slug !== postSlug
   );
 
   const likesMutation = useMutation(
@@ -171,8 +162,21 @@ export default function PostDetailScreen() {
     return bookmarks?.some((bookmark) => bookmark.userId === state.user?.id);
   }
 
+  if (isLoading) return <LoadingScreen />;
+  if (error) return <ErrorScreen />;
+
+  const rootComments = post?.comments.filter(
+    (comment) => comment.parentId === null
+  );
+
+  const relatedPosts = posts?.filter(
+    (p) =>
+      p.categories.some((category) => post?.categories.includes(category)) &&
+      p.slug !== postSlug
+  );
+
   return (
-    <ScrollView style={{ backgroundColor: "#fff" }} ref={scrollRef.current}>
+    <ScrollView style={{ backgroundColor: "#fff" }} ref={scrollRef}>
       <View style={styles.container}>
         <ImageBackground
           source={require("../../../assets/BlogBG.png")}
