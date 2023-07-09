@@ -8,6 +8,7 @@ export const styles = StyleSheet.create({
     backgroundColor: "#fff",
     paddingHorizontal: 10,
   },
+
   topSec: {
     justifyContent: "center",
     alignItems: "center",
@@ -24,12 +25,22 @@ export const styles = StyleSheet.create({
     marginVertical: 10,
   },
   bio: {
-    fontSize: 20,
+    fontSize: 18,
     paddingBottom: 10,
     color: "#888",
   },
   info: {
     paddingTop: 20,
+  },
+  infoFlex: {
+    ...globalStyles.flexBetween,
+    paddingTop: 30,
+  },
+  editText: {
+    fontSize: 15,
+    color: COLORS.gray600,
+    textDecorationLine: "underline",
+    fontWeight: 600,
   },
   headingText: {
     fontSize: 17,

@@ -1,3 +1,5 @@
+import { COLORS } from "./colors";
+
 export const globalStyles = {
   absoluteSpacing: {
     flex: 1,
@@ -41,5 +43,6 @@ export const globalStyles = {
     height: 30,
     width: 30,
     borderRadius: 50,
+    backgroundColor: COLORS.primaryColorLight,
   },
 };

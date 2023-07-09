@@ -12,7 +12,7 @@ export default function BottomSheetComponent() {
   const [isEnabled, setIsEnabled] = useState(false);
   const navigation = useNavigation();
   const SheetRef = useRef(null);
-  const snapPoints = Platform.OS === "android" ? ["42%"] : ["40%"];
+  const snapPoints = Platform.OS === "android" ? ["40%"] : ["35%"];
 
   function toggleSwitch() {
     setIsEnabled((previousState) => !previousState);

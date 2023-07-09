@@ -77,7 +77,7 @@ function Interests({ values, interests, setInterests, previousStep }) {
     <ScrollView style={{ backgroundColor: "#fff" }}>
       <View style={styles.wrapper}>
         <TouchableOpacity onPress={() => previousStep()}>
-          <AntDesign name="leftcircleo" size={30} style={styles.icon} />
+          <AntDesign name="leftcircleo" size={25} style={styles.icon} />
         </TouchableOpacity>
         <Text style={styles.heading}>Select Your Interests</Text>
         <Text style={[styles.subText, { marginTop: 10 }]}>

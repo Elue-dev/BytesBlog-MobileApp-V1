@@ -17,6 +17,10 @@ import PostComments from "../../screens/post_comments/PostComments";
 import PostLikes from "../../screens/post_likes/PostLikes";
 import CommentsHeader from "../screens_header/CommentHeader";
 import UserProfile from "../../screens/user_profile/UserProfile";
+import ManageIntersts from "../../screens/manage_interests/ManageInterests";
+import ManageInterests from "../../screens/manage_interests/ManageInterests";
+import EditProfile from "../../screens/edit_profile/EditProfile";
+import EditProfileHeader from "../screens_header/EditProfileHeader";
 
 const Stack = createStackNavigator();
 const queryClient = new QueryClient();
@@ -72,7 +76,6 @@ export default function Navigation() {
                 component={PostComments}
                 options={{
                   headerShown: true,
-                  // headerTitle: "Comments",
                   presentation: "modal",
                   headerLeft: () => <CommentsHeader />,
                 }}
@@ -95,6 +98,19 @@ export default function Navigation() {
                     <ScreensHeader title="Profile" location="Profile" />
                   ),
                 }}
+              />
+              <Stack.Screen
+                name="EditProfile"
+                component={EditProfile}
+                options={{
+                  headerShown: true,
+                  presentation: "modal",
+                  headerLeft: () => <EditProfileHeader />,
+                }}
+              />
+              <Stack.Screen
+                name="ManageInterests"
+                component={ManageInterests}
               />
             </Stack.Navigator>
           </NavigationContainer>

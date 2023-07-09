@@ -1,20 +1,7 @@
-import {
-  View,
-  Text,
-  Image,
-  FlatList,
-  ScrollView,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, Image, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useAuth } from "../../context/auth/AuthContext";
-import { AntDesign } from "@expo/vector-icons";
-
 import { styles } from "./styles";
-import { globalStyles } from "../../common/globalStyles";
-import { COLORS } from "../../common/colors";
 import AddedPosts from "../../components/added_posts/AddedPosts";
-import SavedPosts from "../../components/saved_posts/SavedPosts";
 import { useRoute } from "@react-navigation/native";
 import { DEFAULT_AVATAR } from "../../utils";
 

@@ -79,7 +79,14 @@ export default function PostDetailScreen() {
         />
         <View style={styles.content}>
           <View style={styles.authorInfo}>
-            <View style={styles.authorProfile}>
+            <TouchableOpacity
+              style={styles.authorProfile}
+              onPress={() =>
+                navigation.navigate("UserProfile", {
+                  user: post.author,
+                })
+              }
+            >
               <Image
                 source={{ uri: post?.author?.avatar || DEFAULT_AVATAR }}
                 style={styles.authorImage}
@@ -101,7 +108,7 @@ export default function PostDetailScreen() {
                   {moment(post.createdAt).fromNow()}
                 </Text>
               </View>
-            </View>
+            </TouchableOpacity>
             <View style={globalStyles.flexStart}>
               <AntDesign name="clockcircleo" size={15} style={styles.icon} />
               <Text style={styles.readTime}>{post.readTime} mins read</Text>

@@ -10,5 +10,8 @@ export const passwordRegex =
 export const SERVER_URL =
   "https://bytesblog-server-production.up.railway.app/api/v1";
 
+export const CLOUD_NAME = "dwdsjbetu";
+export const UPLOAD_PRESET = "oj28w9l5";
+
 export const DEFAULT_AVATAR =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuoNupr5Y7ATlXqQbipRPidHyWTmqGv4dhNw&usqp=CAU";

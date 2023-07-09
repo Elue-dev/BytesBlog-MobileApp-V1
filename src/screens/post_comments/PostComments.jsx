@@ -64,7 +64,7 @@ export default function PostComments() {
     navigation.setOptions({
       headerTitle: `Comments ${!isLoading ? `(${rootComments.length})` : ""} `,
     });
-  }, [isLoading]);
+  }, [isLoading, comment]);
 
   const mutation = useMutation(
     (newComment) => {
@@ -169,6 +169,7 @@ export default function PostComments() {
               value={comment}
               onChangeText={(newComment) => setComment(newComment)}
               placeholder="Add a comment..."
+              placeholderTextColor="#888"
               onFocus={() => setHeightAdust(true)}
               onBlur={() => {
                 setIsReplying(false);

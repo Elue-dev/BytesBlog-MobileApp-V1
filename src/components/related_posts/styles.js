@@ -9,6 +9,17 @@ export const styles = StyleSheet.create({
     paddingTop: 50,
     paddingBottom: 10,
   },
+  noResultsWrap: {
+    ...globalStyles.flexStart,
+  },
+  noResults: {
+    fontSize: 17,
+  },
+  viewAll: {
+    fontSize: 17,
+    textDecorationLine: "underline",
+    color: COLORS.primaryColorHover,
+  },
   itemWrap: {
     paddingVertical: 10,
     borderBottomWidth: 1,

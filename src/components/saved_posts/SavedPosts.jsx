@@ -60,7 +60,7 @@ export default function SavedPosts({ user }) {
         ) : (
           <View>
             <FlatList
-              // scrollEnabled={false}
+              showsHorizontalScrollIndicator={false}
               horizontal
               keyExtractor={(bookmarksToUse) => bookmarksToUse.id}
               data={bookmarksToUse}

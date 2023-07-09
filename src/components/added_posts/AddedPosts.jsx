@@ -62,7 +62,7 @@ export default function AddedPosts({ user, type }) {
         ) : (
           <View>
             <FlatList
-              // scrollEnabled={false}
+              showsHorizontalScrollIndicator={false}
               horizontal
               keyExtractor={(postsToUse) => postsToUse.id}
               data={postsToUse}

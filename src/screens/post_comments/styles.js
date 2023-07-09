@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
   },
   addCommentwrap: {
     paddingHorizontal: 10,
-    marginBottom: 20,
+    marginBottom: 30,
     flexDirection: "row",
     alignItems: "center",
     marginTop: 5,
@@ -32,7 +32,7 @@ export const styles = StyleSheet.create({
   },
   input: {
     flex: 2,
-    paddingHorizontal: 10,
+    paddingHorizontal: 15,
     fontSize: 15,
   },
   greenText: {
