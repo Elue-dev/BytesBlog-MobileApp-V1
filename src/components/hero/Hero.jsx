@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, Platform } from "react-native";
 import React from "react";
 import { styles } from "./styles";
 import { ImageBackground } from "react-native";
@@ -12,7 +12,12 @@ function Hero() {
   } = useAuth();
 
   return (
-    <View style={{ marginHorizontal: 0 }}>
+    <View
+      style={{
+        marginHorizontal: 0,
+        marginVertical: 10,
+      }}
+    >
       <ImageBackground
         source={require("../../../assets/heroImg.png")}
         style={styles.bgImage}

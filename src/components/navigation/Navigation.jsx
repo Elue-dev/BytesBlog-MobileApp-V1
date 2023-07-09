@@ -17,7 +17,6 @@ import PostComments from "../../screens/post_comments/PostComments";
 import PostLikes from "../../screens/post_likes/PostLikes";
 import CommentsHeader from "../screens_header/CommentHeader";
 import UserProfile from "../../screens/user_profile/UserProfile";
-import ManageIntersts from "../../screens/manage_interests/ManageInterests";
 import ManageInterests from "../../screens/manage_interests/ManageInterests";
 import EditProfile from "../../screens/edit_profile/EditProfile";
 import EditProfileHeader from "../screens_header/EditProfileHeader";

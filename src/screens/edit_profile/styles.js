@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import { COLORS } from "../../common/colors";
 import { globalStyles } from "../../common/globalStyles";
 
@@ -7,6 +7,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     paddingTop: 40,
+
     paddingHorizontal: 10,
   },
   headingText: {
@@ -61,7 +62,7 @@ export const styles = StyleSheet.create({
   bioInput: {
     borderWidth: 1,
     borderColor: COLORS.grayLight,
-    paddingVertical: 100,
+    paddingVertical: Platform.OS === "ios" ? 100 : 50,
     borderRadius: 8,
     paddingHorizontal: 8,
     marginTop: 20,
@@ -79,6 +80,7 @@ export const styles = StyleSheet.create({
     ...globalStyles.flexStart,
     paddingTop: 30,
     gap: 10,
+    paddingBottom: 40,
   },
   btn: {
     flex: 1,

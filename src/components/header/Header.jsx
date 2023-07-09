@@ -47,18 +47,18 @@ function Header({ scrollPage, fromBlog }) {
         <View style={styles.authBtnWrapper}>
           {user !== null ? (
             <TouchableOpacity onPress={handleBottomSheetActions}>
-              <Text style={{ fontSize: 20, fontWeight: 500 }}>
+              <View style={styles.profileSec}>
                 <Image
                   source={{ uri: user?.avatar || DEFAULT_AVATAR }}
                   style={{
                     height: 40,
                     width: 40,
                     borderRadius: 20,
-                    // resizeMode: "cover",
+                    resizeMode: "cover",
                   }}
                 />
                 <Feather name="chevron-down" size={25} />
-              </Text>
+              </View>
             </TouchableOpacity>
           ) : (
             <>

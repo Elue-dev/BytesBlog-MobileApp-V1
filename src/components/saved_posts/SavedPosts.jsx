@@ -94,7 +94,10 @@ export default function SavedPosts({ user }) {
                       {item.post.title}
                     </Text>
                     <View
-                      style={[globalStyles.flexBetween, { paddingTop: 10 }]}
+                      style={[
+                        globalStyles.flexBetween,
+                        { paddingTop: 10, paddingBottom: 40 },
+                      ]}
                     >
                       <View style={[globalStyles.flexStart]}>
                         <Feather

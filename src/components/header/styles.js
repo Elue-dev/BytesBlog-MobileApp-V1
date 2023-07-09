@@ -1,17 +1,19 @@
 import { Platform, StyleSheet } from "react-native";
 import { COLORS } from "../../common/colors";
+import { globalStyles } from "../../common/globalStyles";
 
 export const styles = StyleSheet.create({
   wrapper: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    ...globalStyles.flexBetween,
     marginHorizontal: 10,
     backgroundColor: "#fff",
   },
   borders: {
     borderBottomWidth: 2,
     borderBottomColor: "rgb(242, 242, 242)",
+  },
+  profileSec: {
+    ...globalStyles.flexStart,
   },
   authBtnWrapper: {
     flexDirection: "row",

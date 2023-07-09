@@ -5,7 +5,6 @@ import {
   Image,
   ActivityIndicator,
   TouchableOpacity,
-  Pressable,
 } from "react-native";
 import { EvilIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
@@ -29,8 +28,7 @@ function BlogLayout({ postsData, isLoading }) {
   const modifiedCategories = ["All", ...categories];
   const [selectedCategory, setSelectedCategory] = useState("All");
   const { filteredPosts, filterPostsByKeyword, setCurrentPost } = usePosts();
-  const { bottomSheetOpen, toggleBottomSheet, toggleOverlay, logOutUser } =
-    useAuth();
+  const { bottomSheetOpen, toggleBottomSheet, toggleOverlay } = useAuth();
 
   useEffect(() => {
     filterPostsByKeyword(postsData, selectedCategory);
@@ -74,13 +72,6 @@ function BlogLayout({ postsData, isLoading }) {
             modifiedCategories={modifiedCategories}
             scrollToTop={() => scrollToTop(flatListRef)}
           />
-          <Pressable onPress={() => navigation.navigate("Profile")}>
-            <Text>Profile</Text>
-          </Pressable>
-
-          <Pressable onPress={logOutUser}>
-            <Text>Logout</Text>
-          </Pressable>
 
           {bottomSheetOpen && (
             <TouchableOpacity

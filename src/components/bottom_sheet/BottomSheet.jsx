@@ -29,11 +29,9 @@ export default function BottomSheetComponent() {
   }
 
   function handleBottomSheetActions(route) {
-    console.log("running...");
     toggleBottomSheet();
     toggleOverlay();
     navigation.navigate(route);
-    console.log("ram...");
   }
 
   function handleLogoutAction() {
@@ -72,7 +70,7 @@ export default function BottomSheetComponent() {
 
           <TouchableOpacity
             style={styles.bottomSheetItem}
-            onPress={() => navigation.navigate("AddPost")}
+            onPress={() => handleBottomSheetActions("AddPost")}
           >
             <FontAwesome5 name="pen-fancy" size={28} color={COLORS.gray600} />
             <Text style={styles.sheetText}>Add Post</Text>

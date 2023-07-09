@@ -33,86 +33,86 @@ export default function ProfileScreen() {
 
   return (
     <ScrollView style={styles.wrapper}>
-      <SafeAreaView>
-        <View style={styles.topSec}>
-          <View>
-            <Image source={{ uri: user?.avatar }} style={styles.avatar} />
-          </View>
-          <Text style={styles.names}>
-            {user.firstName} {user.lastName}
-          </Text>
-          <Text style={styles.bio}>
-            {user.bio === "" ? "No Bio Yet" : user.bio}
-          </Text>
+      {/* <SafeAreaView> */}
+      <View style={styles.topSec}>
+        <View>
+          <Image source={{ uri: user?.avatar }} style={styles.avatar} />
+        </View>
+        <Text style={styles.names}>
+          {user.firstName} {user.lastName}
+        </Text>
+        <Text style={styles.bio}>
+          {user.bio === "" ? "No Bio Yet" : user.bio}
+        </Text>
+      </View>
+
+      <View style={styles.info}>
+        <View style={styles.infoFlex}>
+          <Text style={styles.headingText}>INFORMATION</Text>
+
+          <TouchableOpacity
+            style={styles.manage}
+            onPress={() => navigation.navigate("EditProfile", { user })}
+          >
+            <Feather name="edit" size={15} color={COLORS.gray600} />
+            <Text style={styles.editText}>Edit Profile</Text>
+          </TouchableOpacity>
         </View>
 
-        <View style={styles.info}>
-          <View style={styles.infoFlex}>
-            <Text style={styles.headingText}>INFORMATION</Text>
-
-            <TouchableOpacity
-              style={styles.manage}
-              onPress={() => navigation.navigate("EditProfile", { user })}
-            >
-              <Feather name="edit" size={15} color={COLORS.gray600} />
-              <Text style={styles.editText}>Edit Profile</Text>
-            </TouchableOpacity>
+        <View style={{ paddingTop: 20 }}>
+          <View style={styles.flexInfo}>
+            <Text style={styles.title}>Email</Text>
+            <Text style={styles.infoText}>{user.email}</Text>
           </View>
 
-          <View style={{ paddingTop: 20 }}>
-            <View style={styles.flexInfo}>
-              <Text style={styles.title}>Email</Text>
-              <Text style={styles.infoText}>{user.email}</Text>
-            </View>
-
-            <View style={styles.flexInfo}>
-              <Text style={styles.title}>Member Since</Text>
-              <Text style={styles.infoText}>
-                {new Date(user.joinedAt).toDateString()}
-              </Text>
-            </View>
-
-            <View style={styles.flexInfo}>
-              <Text style={styles.title}>Last Updated</Text>
-              <Text style={styles.infoText}>
-                {new Date(user.lastUpdated).toDateString()}
-              </Text>
-            </View>
+          <View style={styles.flexInfo}>
+            <Text style={styles.title}>Member Since</Text>
+            <Text style={styles.infoText}>
+              {new Date(user.joinedAt).toDateString()}
+            </Text>
           </View>
 
-          <View style={styles.interestsFlex}>
-            <Text style={styles.headingText}>INTERESTS</Text>
-            <TouchableOpacity
-              style={styles.manage}
-              onPress={() =>
-                navigation.navigate("ManageInterests", {
-                  interests: user.interests,
-                })
-              }
-            >
-              <AntDesign name="edit" size={15} color={COLORS.gray600} />
-              <Text style={styles.manageText}>Manage</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.interests}>
-            {user.interests.map((interest) => (
-              <Text key={interest} style={styles.interest}>
-                {interest}
-              </Text>
-            ))}
+          <View style={styles.flexInfo}>
+            <Text style={styles.title}>Last Updated</Text>
+            <Text style={styles.infoText}>
+              {new Date(user.lastUpdated).toDateString()}
+            </Text>
           </View>
         </View>
 
-        <View style={{ paddingTop: 40 }}>
-          <Text style={styles.headingText}>POSTS YOU'VE ADDED</Text>
-          <AddedPosts user={user} type="Internal" />
+        <View style={styles.interestsFlex}>
+          <Text style={styles.headingText}>INTERESTS</Text>
+          <TouchableOpacity
+            style={styles.manage}
+            onPress={() =>
+              navigation.navigate("ManageInterests", {
+                interests: user.interests,
+              })
+            }
+          >
+            <AntDesign name="edit" size={15} color={COLORS.gray600} />
+            <Text style={styles.manageText}>Manage</Text>
+          </TouchableOpacity>
         </View>
+        <View style={styles.interests}>
+          {user.interests.map((interest) => (
+            <Text key={interest} style={styles.interest}>
+              {interest}
+            </Text>
+          ))}
+        </View>
+      </View>
 
-        <View style={{ paddingTop: 40 }}>
-          <Text style={styles.headingText}>SAVED POSTS</Text>
-          <SavedPosts user={user} />
-        </View>
-      </SafeAreaView>
+      <View style={{ paddingTop: 40 }}>
+        <Text style={styles.headingText}>POSTS YOU'VE ADDED</Text>
+        <AddedPosts user={user} type="Internal" />
+      </View>
+
+      <View style={{ paddingTop: 40 }}>
+        <Text style={styles.headingText}>SAVED POSTS</Text>
+        <SavedPosts user={user} />
+      </View>
+      {/* </SafeAreaView> */}
     </ScrollView>
   );
 }

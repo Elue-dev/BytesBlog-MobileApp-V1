@@ -11,6 +11,7 @@ export const styles = StyleSheet.create({
   topSec: {
     justifyContent: "center",
     alignItems: "center",
+    marginTop: 50,
   },
   avatar: {
     height: 100,
