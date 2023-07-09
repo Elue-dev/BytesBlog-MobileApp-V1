@@ -4,7 +4,7 @@ import { COLORS } from "../../common/colors";
 export const styles = StyleSheet.create({
   bgImage: {
     height: 550,
-    width: 400,
+    width: "100%",
     resizeMode: "cover",
     position: "relative",
   },
@@ -16,11 +16,11 @@ export const styles = StyleSheet.create({
   heroText: {
     fontSize: 42,
     maxWidth: 330,
-    fontWeight: "500",
+    fontWeight: 500,
   },
   heroTextSec: {
     color: COLORS.grayNeutral,
-    lineHeight: 25,
+    lineHeight: 30,
     paddingTop: 15,
     fontSize: 20,
     maxWidth: 330,

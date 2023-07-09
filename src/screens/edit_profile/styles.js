@@ -67,6 +67,7 @@ export const styles = StyleSheet.create({
     marginTop: 20,
     fontSize: 16,
     color: "#333",
+    lineHeight: 25,
   },
   bioLength: {
     textAlign: "right",

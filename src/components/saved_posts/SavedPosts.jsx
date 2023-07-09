@@ -76,7 +76,12 @@ export default function SavedPosts({ user }) {
                   >
                     <Image
                       source={{ uri: item.post.image }}
-                      style={{ height: 200, width: 400, borderRadius: 10 }}
+                      style={{
+                        height: 200,
+                        width: 400,
+                        borderRadius: 10,
+                        backgroundColor: COLORS.primaryColorLight,
+                      }}
                     />
                     <Text
                       style={{

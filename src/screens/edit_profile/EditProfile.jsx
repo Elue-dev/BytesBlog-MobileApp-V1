@@ -35,7 +35,7 @@ export default function EditProfile() {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: "Edit profile",
+      headerTitle: "Edit Profile",
     });
   }, []);
 
@@ -163,8 +163,6 @@ export default function EditProfile() {
               onContentSizeChange={handleContentSizeChange}
               value={bio}
               onChangeText={(newBio) => setBio(newBio)}
-              // onFocus={() => setAdjustHeight(true)}
-              // onBlur={() => setAdjustHeight(false)}
             />
             <Text style={styles.bioLength}>{bio.length}/200 words</Text>
           </View>

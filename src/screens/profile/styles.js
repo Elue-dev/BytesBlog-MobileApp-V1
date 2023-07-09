@@ -8,7 +8,6 @@ export const styles = StyleSheet.create({
     backgroundColor: "#fff",
     paddingHorizontal: 10,
   },
-
   topSec: {
     justifyContent: "center",
     alignItems: "center",
@@ -40,7 +39,6 @@ export const styles = StyleSheet.create({
     fontSize: 15,
     color: COLORS.gray600,
     textDecorationLine: "underline",
-    fontWeight: 600,
   },
   headingText: {
     fontSize: 17,

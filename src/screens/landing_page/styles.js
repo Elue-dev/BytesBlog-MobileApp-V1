@@ -24,13 +24,12 @@ export const styles = StyleSheet.create({
     marginBottom: 25,
   },
   offersWrap: {
-    flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "flex-start",
     gap: 12,
     paddingHorizontal: 15,
     marginBottom: 15,
-    maxWidth: 320,
+    marginTop: 18,
   },
   offersHeading: {
     fontSize: 20,
@@ -58,7 +57,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   landingImg: {
-    width: Platform.OS === "android" ? 380 : 350,
+    maxWidth: Platform.OS === "android" ? 380 : "90%",
     borderRadius: 40,
     marginHorizontal: 10,
   },
