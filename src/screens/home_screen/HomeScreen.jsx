@@ -52,7 +52,12 @@ export default function HomeScreen() {
           Search results for <Text style={styles.subText}>'{term}'</Text>
         </Text>
       )} */}
-      <BlogLayout postsData={userSpecificPosts.current} isLoading={isLoading} />
+      <BlogLayout
+        postsData={userSpecificPosts.current}
+        isLoading={isLoading}
+        posts={posts}
+        userSpecificPosts={userSpecificPosts}
+      />
     </View>
   );
 }

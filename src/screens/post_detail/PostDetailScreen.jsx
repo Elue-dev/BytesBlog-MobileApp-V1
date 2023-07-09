@@ -7,10 +7,15 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { AntDesign, Ionicons, EvilIcons } from "@expo/vector-icons";
-import { useQuery } from "@tanstack/react-query";
+import {
+  AntDesign,
+  Ionicons,
+  EvilIcons,
+  FontAwesome,
+} from "@expo/vector-icons";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { httpRequest } from "../../lib";
 import moment from "moment";
 import { globalStyles } from "../../common/globalStyles";
@@ -21,11 +26,22 @@ import { DEFAULT_AVATAR } from "../../utils";
 import RelatedPosts from "../../components/related_posts/RelatedPosts";
 import { scrollToTop } from "../../helpers/index";
 import { styles } from "./styles";
+import { useAuth } from "../../context/auth/AuthContext";
+import { throwAlert, throwError } from "../../helpers/throwAlert";
 
 export default function PostDetailScreen() {
+  const { state } = useAuth();
   const { postSlug } = useRoute().params;
   const scrollRef = useRef(null);
   const navigation = useNavigation();
+  const [isLiked, setIsLiked] = useState(false);
+  const [isBookmarked, setIsBookmarked] = useState(false);
+  const [likesLoading, setLikesLoading] = useState(false);
+  const [bookmarksLoading, setBookmarksloading] = useState(false);
+  const queryClient = useQueryClient();
+  const authHeaders = {
+    headers: { authorization: `Bearer ${state.user?.token}` },
+  };
 
   useEffect(() => {
     scrollToTop(scrollRef);
@@ -69,6 +85,91 @@ export default function PostDetailScreen() {
       p.categories.some((category) => post?.categories.includes(category)) &&
       p.slug !== postSlug
   );
+
+  const likesMutation = useMutation(
+    (postId) => {
+      return httpRequest.post(`/likeDislike/${postId}`, "", authHeaders);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["posts"]);
+        queryClient.invalidateQueries([`post-${postSlug}`]);
+        setLikesLoading(false);
+      },
+    }
+  );
+
+  const bookmarksMutation = useMutation(
+    (postId) => {
+      return httpRequest.post(
+        `/bookmarks/addRemoveBookmark/${postId}`,
+        "",
+        authHeaders
+      );
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["posts"]);
+        queryClient.invalidateQueries([`post-${postSlug}`]);
+        setBookmarksloading(false);
+      },
+    }
+  );
+
+  useEffect(() => {
+    if (isLiked) {
+      const timer = setTimeout(() => {
+        setIsLiked(false);
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+
+    if (isBookmarked) {
+      const timer = setTimeout(() => {
+        setIsBookmarked(false);
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isLiked, isBookmarked]);
+
+  async function likeDislikePost(postId) {
+    try {
+      setLikesLoading(true);
+      const response = await likesMutation.mutateAsync(postId);
+      if (response && response.data.message === "Post liked") {
+        setIsLiked(true);
+      }
+    } catch (error) {
+      setLikesLoading(false);
+      throwError(error.response.data.message);
+    }
+  }
+
+  async function addRemoveBookmark(postId) {
+    try {
+      setBookmarksloading(true);
+      const response = await bookmarksMutation.mutateAsync(postId);
+      if (response && response.data.message === "Post added to bookmarks") {
+        // throwAlert("Success ✅", "Post added to saved");
+        setIsBookmarked(true);
+      } else {
+        // throwAlert("Success ✅", "Post removed from saved");
+      }
+    } catch (error) {
+      setBookmarksloading(false);
+      throwError(error.response.data.message);
+    }
+  }
+
+  function userHasLikedPost(likes) {
+    return likes?.some((like) => like.userId === state.user?.id);
+  }
+
+  function userHasBookmarkedPost(bookmarks) {
+    return bookmarks?.some((bookmark) => bookmark.userId === state.user?.id);
+  }
 
   return (
     <ScrollView style={{ backgroundColor: "#fff" }} ref={scrollRef.current}>
@@ -135,7 +236,13 @@ export default function PostDetailScreen() {
             {/* =========== ACTIONS (likes, comments, bookmarks) =========== */}
             <View style={styles.actions}>
               <View style={styles.action}>
-                <AntDesign name="like2" size={22} />
+                <TouchableOpacity onPress={() => likeDislikePost(post.id)}>
+                  {userHasLikedPost(post.likes) ? (
+                    <AntDesign name="like1" size={22} />
+                  ) : (
+                    <EvilIcons name="like" size={35} />
+                  )}
+                </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.action}
                   onPress={() =>
@@ -150,7 +257,7 @@ export default function PostDetailScreen() {
                       { textDecorationLine: "underline" },
                     ]}
                   >
-                    {post.likes.length}
+                    {likesLoading ? "..." : post.likes.length}
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -176,8 +283,17 @@ export default function PostDetailScreen() {
               </TouchableOpacity>
 
               <View style={styles.action}>
-                <Ionicons name="bookmark-outline" size={21} />
-                <Text style={styles.actionText}>{post.bookmarks.length}</Text>
+                <TouchableOpacity onPress={() => addRemoveBookmark(post.id)}>
+                  {userHasBookmarkedPost(post.bookmarks) ? (
+                    <FontAwesome name="bookmark" size={20} />
+                  ) : (
+                    <Ionicons name="bookmark-outline" size={21} />
+                  )}
+                </TouchableOpacity>
+
+                <Text style={styles.actionText}>
+                  {bookmarksLoading ? "..." : post.bookmarks.length}
+                </Text>
               </View>
             </View>
 
