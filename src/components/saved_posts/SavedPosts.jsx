@@ -45,7 +45,7 @@ export default function SavedPosts({ user }) {
   }, [bookmarks, user.id]);
 
   return (
-    <View style={{ paddingTop: 10 }}>
+    <View style={{ paddingTop: 10, paddingBottom: 100 }}>
       <>
         {isLoading ? (
           <ActivityIndicator
@@ -66,6 +66,7 @@ export default function SavedPosts({ user }) {
               data={bookmarksToUse}
               contentContainerStyle={{ gap: 10 }}
               renderItem={({ item }) => {
+                console.log({ item });
                 return (
                   <TouchableOpacity
                     onPress={() =>
@@ -110,7 +111,7 @@ export default function SavedPosts({ user }) {
                         </Text>
                       </View>
                       <Text style={{ color: COLORS.gray600 }}>
-                        Added {moment(item.post.createdAt).fromNow()}
+                        Bookmarked {moment(item.createdAt).fromNow()}
                       </Text>
                     </View>
                   </TouchableOpacity>

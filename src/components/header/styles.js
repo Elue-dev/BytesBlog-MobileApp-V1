@@ -14,6 +14,7 @@ export const styles = StyleSheet.create({
   },
   profileSec: {
     ...globalStyles.flexStart,
+    gap: 0,
   },
   authBtnWrapper: {
     flexDirection: "row",

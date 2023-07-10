@@ -6,6 +6,7 @@ import { Feather } from "@expo/vector-icons";
 import { SharedElement } from "react-native-shared-element";
 import { styles } from "./styles";
 import BottomSheetComponent from "../bottom_sheet/BottomSheet";
+import { COLORS } from "../../common/colors";
 
 function Header({ scrollPage, fromBlog }) {
   const navigation = useNavigation();
@@ -51,13 +52,14 @@ function Header({ scrollPage, fromBlog }) {
                 <Image
                   source={{ uri: user?.avatar || DEFAULT_AVATAR }}
                   style={{
-                    height: 40,
-                    width: 40,
-                    borderRadius: 20,
+                    height: 55,
+                    width: 55,
+                    borderRadius: 27.5,
                     resizeMode: "cover",
+                    backgroundColor: COLORS.primaryColorLight,
                   }}
                 />
-                <Feather name="chevron-down" size={25} />
+                <Feather name="chevron-down" size={22} />
               </View>
             </TouchableOpacity>
           ) : (
