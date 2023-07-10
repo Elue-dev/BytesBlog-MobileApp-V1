@@ -2,11 +2,10 @@ import { View, Text, TouchableOpacity, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../../context/auth/AuthContext";
 import { DEFAULT_AVATAR } from "../../utils";
-import { Feather } from "@expo/vector-icons";
+import { Feather, AntDesign } from "@expo/vector-icons";
 import { SharedElement } from "react-native-shared-element";
 import { styles } from "./styles";
 import BottomSheetComponent from "../bottom_sheet/BottomSheet";
-import { COLORS } from "../../common/colors";
 
 function Header({ scrollPage, fromBlog }) {
   const navigation = useNavigation();
@@ -47,21 +46,26 @@ function Header({ scrollPage, fromBlog }) {
 
         <View style={styles.authBtnWrapper}>
           {user !== null ? (
-            <TouchableOpacity onPress={handleBottomSheetActions}>
-              <View style={styles.profileSec}>
-                <Image
-                  source={{ uri: user?.avatar || DEFAULT_AVATAR }}
-                  style={{
-                    height: 55,
-                    width: 55,
-                    borderRadius: 27.5,
-                    resizeMode: "cover",
-                    backgroundColor: COLORS.primaryColorLight,
-                  }}
-                />
-                <Feather name="chevron-down" size={22} />
-              </View>
-            </TouchableOpacity>
+            <View style={styles.flexHead}>
+              {fromBlog && (
+                <TouchableOpacity onPress={() => navigation.navigate("Search")}>
+                  <AntDesign
+                    name="search1"
+                    size={40}
+                    style={styles.searchIcon}
+                  />
+                </TouchableOpacity>
+              )}
+              <TouchableOpacity onPress={handleBottomSheetActions}>
+                <View style={styles.profileSec}>
+                  <Image
+                    source={{ uri: user?.avatar || DEFAULT_AVATAR }}
+                    style={styles.avatar}
+                  />
+                  <Feather name="chevron-down" size={22} />
+                </View>
+              </TouchableOpacity>
+            </View>
           ) : (
             <>
               <TouchableOpacity

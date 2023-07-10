@@ -30,7 +30,11 @@ export default function UserProfile() {
           <View style={{ paddingTop: 20 }}>
             <View style={styles.flexInfo}>
               <Text style={styles.title}>Email</Text>
-              <Text style={styles.infoText}>{user.email}</Text>
+              <Text style={styles.infoText}>
+                {user.email.length > 30
+                  ? `${user.email.slice(0, 30)}...`
+                  : user.email}
+              </Text>
             </View>
 
             <View style={styles.flexInfo}>

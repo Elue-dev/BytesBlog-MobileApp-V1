@@ -153,6 +153,7 @@ function BlogLayout({ postsData, isLoading, userSpecificPosts, posts }) {
         flex: 1,
         marginTop: 40,
         backgroundColor: "#fff",
+        // zIndex: 1,
       }}
     >
       {isLoading ? (

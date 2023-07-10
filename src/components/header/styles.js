@@ -16,6 +16,17 @@ export const styles = StyleSheet.create({
     ...globalStyles.flexStart,
     gap: 0,
   },
+  avatar: {
+    height: 55,
+    width: 55,
+    borderRadius: 27.5,
+    resizeMode: "cover",
+    backgroundColor: COLORS.primaryColorLight,
+  },
+  flexHead: {
+    ...globalStyles.flexStart,
+  },
+
   authBtnWrapper: {
     flexDirection: "row",
     justifyContent: "flex-start",

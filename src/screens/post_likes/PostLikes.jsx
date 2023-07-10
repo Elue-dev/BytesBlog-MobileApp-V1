@@ -40,9 +40,11 @@ export default function PostLikes() {
                       </Text>
                     </View>
                     <Text style={styles.bio}>
-                      {item.user.bio !== ""
-                        ? item.user.bio.substring(0, 25) + "..."
-                        : "No Bio Yet"}
+                      {item.user.bio === ""
+                        ? "No Bio Yet"
+                        : item.user.bio.length < 30
+                        ? item.user.bio
+                        : item.user.bio.substring(0, 25) + "..."}
                     </Text>
                   </View>
                 </View>

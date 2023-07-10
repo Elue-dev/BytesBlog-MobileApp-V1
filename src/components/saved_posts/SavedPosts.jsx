@@ -66,7 +66,6 @@ export default function SavedPosts({ user }) {
               data={bookmarksToUse}
               contentContainerStyle={{ gap: 10 }}
               renderItem={({ item }) => {
-                console.log({ item });
                 return (
                   <TouchableOpacity
                     onPress={() =>
