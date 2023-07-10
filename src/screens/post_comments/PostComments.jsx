@@ -48,13 +48,13 @@ export default function PostComments() {
     });
   };
 
-  const { data: allComments, isLoading } = useQuery(
-    [`comments-${postId}`],
-    queryFn,
-    {
-      staleTime: 60000,
-    }
-  );
+  const {
+    data: allComments,
+    isLoading,
+    refetch,
+  } = useQuery([`comments-${postId}`], queryFn, {
+    staleTime: 60000,
+  });
 
   const rootComments = allComments?.filter(
     (comment) => comment.parentId === null
@@ -62,9 +62,9 @@ export default function PostComments() {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: `Comments ${!isLoading ? `(${rootComments.length})` : ""} `,
+      headerTitle: "Comments",
     });
-  }, [isLoading, comment]);
+  }, []);
 
   const mutation = useMutation(
     (newComment) => {
@@ -75,6 +75,7 @@ export default function PostComments() {
         queryClient.invalidateQueries([`comments-${postId}`]);
         queryClient.invalidateQueries([`post-${postSlug}`]);
         setHeightAdust(false);
+        refetch();
       },
       onError: () => {
         setLoading(false);

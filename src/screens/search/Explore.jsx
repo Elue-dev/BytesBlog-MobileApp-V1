@@ -9,20 +9,21 @@ import {
 } from "react-native";
 import { useEffect, useState } from "react";
 import {
-  EvilIcons,
-  Fontisto,
   AntDesign,
   MaterialCommunityIcons,
+  MaterialIcons,
 } from "@expo/vector-icons";
 import { styles } from "./style";
 import { httpRequest } from "../../lib";
 import { useQuery } from "@tanstack/react-query";
 import { getRelevantPosts } from "../../helpers/search.algorithm";
-import moment from "moment";
 import { COLORS } from "../../common/colors";
 import { useNavigation } from "@react-navigation/native";
+import LoadingScreen from "../../components/httpStates/Loading";
+import ErrorScreen from "../../components/httpStates/Error";
+import { parseText } from "../../utils";
 
-export default function Search() {
+export default function Explore() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const navigation = useNavigation();
@@ -32,7 +33,12 @@ export default function Search() {
     return response.data.posts;
   }
 
-  const { data: posts } = useQuery(["posts"], queryFn, {
+  const {
+    data: posts,
+    isLoading,
+    error,
+    refetch,
+  } = useQuery(["posts"], queryFn, {
     staleTime: 60000,
   });
 
@@ -43,6 +49,9 @@ export default function Search() {
     }
   }, [searchQuery]);
 
+  if (isLoading) return <LoadingScreen />;
+  if (error) return <ErrorScreen refetch={refetch} />;
+
   return (
     <SafeAreaView style={styles.wrapper}>
       <View style={{ marginHorizontal: 10, marginBottom: 200 }}>
@@ -51,24 +60,25 @@ export default function Search() {
             style={styles.input}
             value={searchQuery}
             onChangeText={(newVal) => setSearchQuery(newVal)}
-            placeholder="Search posts by title, authors, categories"
+            placeholder="Explore by title, authors, categories..."
+            placeholderTextColor="#999"
           />
           {searchQuery && (
             <TouchableOpacity onPress={() => setSearchQuery("")}>
-              <AntDesign name="close" size={20} />
+              <AntDesign name="close" size={23} />
             </TouchableOpacity>
           )}
         </View>
 
         {!searchQuery && (
           <View style={styles.introSearch}>
-            <MaterialCommunityIcons
-              name="text-box-search-outline"
+            <MaterialIcons
+              name="explore"
               size={200}
               color={COLORS.grayNeutralSec}
             />
             <Text style={styles.introText}>
-              Search for blog posts by Title, Authors, Categories etc
+              Explore blog posts outside of your interests
             </Text>
           </View>
         )}
@@ -90,6 +100,13 @@ export default function Search() {
           </View>
         )}
 
+        {searchQuery && searchResults.length > 0 && (
+          <Text style={styles.resultsCount}>
+            {searchResults.length}{" "}
+            {searchResults.length === 1 ? "post" : "posts"} found
+          </Text>
+        )}
+
         {searchQuery && (
           <View style={styles.searchResults}>
             <FlatList
@@ -98,36 +115,37 @@ export default function Search() {
               keyExtractor={(searchResults) => searchResults.id}
               renderItem={({ item }) => {
                 return (
-                  <TouchableOpacity
-                    style={styles.container}
-                    onPress={() =>
-                      navigation.navigate("PostDetails", {
-                        postSlug: item.slug,
-                        postId: item.id,
-                      })
-                    }
-                  >
-                    <View style={styles.contentWrap}>
-                      <Image
-                        source={{ uri: item.image }}
-                        style={styles.image}
-                      />
-                      <View>
-                        <Text style={styles.title}>{item.title}</Text>
-                        <View style={styles.info}>
-                          <View style={styles.readTime}>
-                            <EvilIcons name="clock" size={20} />
-                            <Text>{item.readTime} mins read</Text>
-                          </View>
-
-                          <View style={styles.createdAt}>
-                            <Fontisto name="date" size={13} />
-                            <Text>{moment(item.createdAt).fromNow()}</Text>
+                  <View style={styles.resultsWrap}>
+                    <TouchableOpacity
+                      style={styles.container}
+                      onPress={() =>
+                        navigation.navigate("PostDetails", {
+                          postSlug: item.slug,
+                          postId: item.id,
+                        })
+                      }
+                    >
+                      <View style={styles.contentWrap}>
+                        <Image
+                          source={{ uri: item.image }}
+                          style={styles.image}
+                        />
+                        <View>
+                          <Text style={styles.title}>
+                            {item.title.length > 100
+                              ? item.title.slice(0, 100) + "..."
+                              : item.title}
+                          </Text>
+                          <View style={styles.content}>
+                            <Text>
+                              {parseText(item.content.slice(0, 70))}
+                              {"..."}
+                            </Text>
                           </View>
                         </View>
                       </View>
-                    </View>
-                  </TouchableOpacity>
+                    </TouchableOpacity>
+                  </View>
                 );
               }}
             />

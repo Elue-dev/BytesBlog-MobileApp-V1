@@ -6,7 +6,12 @@ import {
   SafeAreaView,
 } from "react-native";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
-import { Feather, FontAwesome5, SimpleLineIcons } from "@expo/vector-icons";
+import {
+  Feather,
+  FontAwesome5,
+  SimpleLineIcons,
+  MaterialIcons,
+} from "@expo/vector-icons";
 import { useRef, useState } from "react";
 import { useAuth } from "../../context/auth/AuthContext";
 import { styles } from "./styles";
@@ -67,6 +72,18 @@ export default function BottomSheetComponent() {
             />
             <Text style={styles.sheetText}>Light/Dark Mode</Text>
           </TouchableOpacity> */}
+          <TouchableOpacity
+            style={styles.bottomSheetItem}
+            onPress={() => handleBottomSheetActions("Explore")}
+          >
+            <MaterialIcons
+              name="explore"
+              size={33}
+              color={COLORS.gray600}
+              style={styles.searchIcon}
+            />
+            <Text style={styles.sheetText}>Explore</Text>
+          </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.bottomSheetItem}

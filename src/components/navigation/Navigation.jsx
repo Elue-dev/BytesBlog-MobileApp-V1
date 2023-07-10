@@ -20,7 +20,7 @@ import UserProfile from "../../screens/user_profile/UserProfile";
 import ManageInterests from "../../screens/manage_interests/ManageInterests";
 import EditProfile from "../../screens/edit_profile/EditProfile";
 import EditProfileHeader from "../screens_header/EditProfileHeader";
-import Search from "../../screens/search/Search";
+import Explore from "../../screens/search/Explore";
 
 const Stack = createStackNavigator();
 const queryClient = new QueryClient();
@@ -113,10 +113,11 @@ export default function Navigation() {
                 component={ManageInterests}
               />
               <Stack.Screen
-                name="Search"
-                component={Search}
+                name="Explore"
+                component={Explore}
                 options={{
                   headerShown: true,
+                  headerTitle: "Explore",
                   presentation: "modal",
                   headerLeft: () => <CommentsHeader />,
                 }}

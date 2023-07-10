@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../../context/auth/AuthContext";
 import { DEFAULT_AVATAR } from "../../utils";
-import { Feather, AntDesign } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import { SharedElement } from "react-native-shared-element";
 import { styles } from "./styles";
 import BottomSheetComponent from "../bottom_sheet/BottomSheet";
@@ -47,15 +47,6 @@ function Header({ scrollPage, fromBlog }) {
         <View style={styles.authBtnWrapper}>
           {user !== null ? (
             <View style={styles.flexHead}>
-              {fromBlog && (
-                <TouchableOpacity onPress={() => navigation.navigate("Search")}>
-                  <AntDesign
-                    name="search1"
-                    size={40}
-                    style={styles.searchIcon}
-                  />
-                </TouchableOpacity>
-              )}
               <TouchableOpacity onPress={handleBottomSheetActions}>
                 <View style={styles.profileSec}>
                   <Image

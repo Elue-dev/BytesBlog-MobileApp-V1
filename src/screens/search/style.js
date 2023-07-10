@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
   inputWrap: {
     marginTop: 30,
     ...globalStyles.flexStart,
-    gap: 0,
+    gap: 2,
     flexDirection: "row",
     alignItems: "center",
   },
@@ -23,6 +23,7 @@ export const styles = StyleSheet.create({
     marginRight: "auto",
     paddingLeft: 10,
     fontSize: 17,
+    marginBottom: 10,
   },
   iconContainer: {},
   icon: {
@@ -45,6 +46,14 @@ export const styles = StyleSheet.create({
     width: 200,
     marginTop: 50,
   },
+  resultsCount: {
+    textAlign: "center",
+    fontSize: 17,
+    marginHorizontal: 10,
+    color: COLORS.primaryColorHover,
+    fontWeight: 500,
+    fontStyle: "italic",
+  },
   introSearch: {
     ...globalStyles.flexCenter,
     flexDirection: "column",
@@ -56,39 +65,33 @@ export const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: 19,
   },
+  resultsWrap: {
+    borderBottomWidth: 1,
+    borderColor: COLORS.lightGraySec,
+  },
   searchResults: {
     paddingTop: 20,
   },
   container: {
     maxWidth: "70%",
     marginBottom: 20,
-    marginLeft: 10,
+    marginTop: 10,
   },
   contentWrap: {
     ...globalStyles.flexStart,
-
     gap: 10,
   },
   image: {
     height: 100,
     width: 100,
     borderRadius: 10,
+    backgroundColor: COLORS.primaryColorLight,
   },
   title: {
     fontWeight: "700",
   },
-  info: {
+  content: {
     ...globalStyles.flexBetween,
-    justifyContent: "flex-end", // Align children to the bottom
-    marginTop: 20,
-  },
-  readTime: {
-    ...globalStyles.flexStart,
-    gap: 1,
-  },
-  createdAt: {
-    ...globalStyles.flexStart,
-    gap: 4,
-    marginLeft: "auto", // Push component to the right
+    marginTop: 10,
   },
 });

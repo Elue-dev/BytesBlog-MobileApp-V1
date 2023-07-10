@@ -28,8 +28,7 @@ export function getRelevantPosts(postsArray, query) {
         .includes(query.toLowerCase()) ||
       post.categories
         ?.map((category) => category.toLowerCase())
-        .includes(query.toLowerCase()) ||
-      post?.content.toLowerCase().includes(query.toLowerCase())
+        .includes(query.toLowerCase())
   );
 
   return relevantPosts;

@@ -17,16 +17,18 @@ export const styles = StyleSheet.create({
     gap: 0,
   },
   avatar: {
-    height: 55,
-    width: 55,
-    borderRadius: 27.5,
+    height: 50,
+    width: 50,
+    borderRadius: 25,
     resizeMode: "cover",
     backgroundColor: COLORS.primaryColorLight,
   },
   flexHead: {
     ...globalStyles.flexStart,
   },
-
+  searchIcon: {
+    color: COLORS.blackNeutralSec,
+  },
   authBtnWrapper: {
     flexDirection: "row",
     justifyContent: "flex-start",
