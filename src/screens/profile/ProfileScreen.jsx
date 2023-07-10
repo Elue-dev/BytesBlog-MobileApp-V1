@@ -33,7 +33,6 @@ export default function ProfileScreen() {
 
   return (
     <ScrollView style={styles.wrapper}>
-      {/* <SafeAreaView> */}
       <View style={styles.topSec}>
         <View>
           <Image source={{ uri: user?.avatar }} style={styles.avatar} />
@@ -62,7 +61,11 @@ export default function ProfileScreen() {
         <View style={{ paddingTop: 20 }}>
           <View style={styles.flexInfo}>
             <Text style={styles.title}>Email</Text>
-            <Text style={styles.infoText}>{user.email}</Text>
+            <Text style={styles.infoText}>
+              {user.email.length > 30
+                ? `${user.email.slice(0, 30)}...`
+                : user.email}
+            </Text>
           </View>
 
           <View style={styles.flexInfo}>
@@ -112,7 +115,6 @@ export default function ProfileScreen() {
         <Text style={styles.headingText}>SAVED POSTS</Text>
         <SavedPosts user={user} />
       </View>
-      {/* </SafeAreaView> */}
     </ScrollView>
   );
 }

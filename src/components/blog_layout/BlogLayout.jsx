@@ -23,7 +23,7 @@ import BottomSheetComponent from "../bottom_sheet/BottomSheet";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { styles } from "./styles";
 import { httpRequest } from "../../lib";
-import { throwAlert, throwError } from "../../helpers/throwAlert";
+import { throwError } from "../../helpers/throwAlert";
 
 function BlogLayout({ postsData, isLoading, userSpecificPosts, posts }) {
   const navigation = useNavigation();
@@ -107,10 +107,8 @@ function BlogLayout({ postsData, isLoading, userSpecificPosts, posts }) {
       setBookmarksloading(true);
       const response = await bookmarksMutation.mutateAsync(postId);
       if (response && response.data.message === "Post added to bookmarks") {
-        // throwAlert("Success ✅", "Post added to saved");
         setIsBookmarked(true);
       } else {
-        // throwAlert("Success ✅", "Post removed from saved");
       }
     } catch (error) {
       setBookmarksloading(false);

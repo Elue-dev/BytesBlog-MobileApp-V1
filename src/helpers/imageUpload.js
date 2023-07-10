@@ -22,8 +22,8 @@ export async function uploadImageToCloud(image) {
 
       const imageData = await response.json();
       if (
-        imageData.error.message ||
-        imageData.error.message.includes("File size too large")
+        imageData.error?.message ||
+        imageData.error?.message.includes("File size too large")
       )
         return throwError("Image size too large, Please use a smaller image");
 
@@ -35,6 +35,6 @@ export async function uploadImageToCloud(image) {
     }
   } catch (error) {
     console.log(error);
-    throwError(error.message);
+    throwError(error.response?.data?.message);
   }
 }

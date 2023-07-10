@@ -38,8 +38,8 @@ export const styles = StyleSheet.create({
   },
   subText: {
     color: COLORS.grayNeutral,
-    fontSize: 16,
-    lineHeight: 25,
+    fontSize: 17,
+    lineHeight: 27,
   },
   offersImg: {
     height: 50,

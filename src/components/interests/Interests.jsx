@@ -59,7 +59,7 @@ function Interests({ values, interests, setInterests, previousStep }) {
         navigation.dispatch(
           CommonActions.reset({
             index: 0,
-            routes: [{ name: "Home" }],
+            routes: [{ name: "Landing" }],
           })
         );
       }
